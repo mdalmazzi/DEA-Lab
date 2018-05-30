@@ -212,23 +212,18 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
     } */
 
     circle(number_box: number, index_box: number) {
-
-    //console.log(this.boxService.style, 'this.boxService.style');
-    
     
      this.boxService.get_levelDown_ric(index_box);
      this.boxService.get_levelUp_ric(index_box);
 
-    // console.log(this.boxService.index_down, this.boxService.index_up);
-
-  
+    
          // Cerchio Primario -non è un box con livelli annidati _ Non più cerchio unico 
 
         //if ((this.boxService.index_up == this.boxService.index_down) ) {
             if ((this.boxService.index_up == index_box) ) {           
                 
-                let radius = 150;
-                 // radius of the circle
+                let radius = 250;
+                // radius of the circle
          
                 //window.innerWidth
                 let width = 500;
@@ -265,26 +260,27 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
         } else if (this.boxService.index_up != index_box) {
 
        
-        this.box.color = this.boxService.boxes[this.boxService.index_up].color; 
+            this.box.color = this.boxService.boxes[this.boxService.index_up].color; 
         
-        let radius = 250; 
+            let radius = 280; 
         
-        
-        // countMin = conteggia il numero box livello 0
-        let countMin = this.boxService.countlevel(this.boxService.index_up);
+     
+            // countMin = conteggia il numero box livello 0
+            let countMin = this.boxService.countlevel(this.boxService.index_up);
 
        
-        // step = (angolo giro/numero livello 0)/ (numero di box al secondo livello//
+            // step = (angolo giro/numero livello 0)/ (numero di box al secondo livello//
         
-        let  step = (2*(Math.PI)/(countMin)) / (this.boxService.index_down - this.boxService.index_up);
+            let  step = (2*(Math.PI)/(countMin)) / (this.boxService.index_down - this.boxService.index_up);
      
-        // trovo il mio index_up
-        let index_count = 0;
-        for (var _i: any = 0; _i < this.boxService.style.length; _i++) {
-            if (this.boxService.style[_i].numero == this.boxService.index_up) 
-                {
-                    index_count = _i;     
-                }
+            // trovo il mio index_up
+            let index_count = 0;
+            for (var _i: any = 0; _i < this.boxService.style.length; _i++) 
+            {
+                if (this.boxService.style[_i].numero == this.boxService.index_up) 
+                    {
+                        index_count = _i;     
+                    }
             }
 
             let x;
@@ -294,103 +290,30 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
             //let angle = (Math.PI)/9 + Math.PI;
             let step_sup = (2*Math.PI) / (this.boxService.countAngle()- 1);
                             
-                //angle = angle + step * (index_box -1)  
+            //angle = angle + step * (index_box -1)  
             angle = angle + step_sup * this.boxService.countStep(index_box); 
-
-             
-
-            /* if ((this.boxService.style[0].left >= this.boxService.style[index_count].left) && (this.boxService.style[0].top >= this.boxService.style[index_count].top) ) 
-                
-                { */
+          
+            let angle1 = angle + (step) * (index_box - this.boxService.index_up - 2);
                    
-                    //Quadrante basso sinistra
+            x = Math.round(this.boxService.secondaryRadiusX/2 + radius * Math.cos(angle1));
 
-                    //count_before = conteggia i box nel quadrante
-
-                   /*  let count_before = 0
-                    count_before = this.boxService.countlevel_before(this.boxService.index_up, 1);
- */
-                
-                    
-
-                    let angle1 = angle + (step) * (index_box - this.boxService.index_up - 2);
-                   
-
-                    x = Math.round(this.boxService.secondaryRadiusX/2 + radius * Math.cos(angle1));
-
-                    y = Math.round(this.boxService.secondaryRadiusY/2 + radius * Math.sin(angle1));   
-                     
-            /*         
-                }  */
-
-               /*   if ((this.boxService.style[0].left >= this.boxService.style[index_count].left) && (this.boxService.style[0].top < this.boxService.style[index_count].top) ) 
-                
-                { */
-                   
-                    // 'Alto Sinistra' ??
-
-               /*      let count_before = 0
-                    count_before = this.boxService.countlevel_before(this.boxService.index_up + 1, 2);
-
-                   
-
-                    let angle1 = angle + (step) * (index_box - this.boxService.index_up - 1);
-
-                    x = Math.round(this.boxService.secondaryRadiusX/2 + radius * Math.cos(angle1));
-                    y = Math.round(this.boxService.secondaryRadiusY/2 + radius * Math.sin(angle1));
-                    
-                }
-
-                if ((this.boxService.style[0].left < this.boxService.style[index_count].left) && (this.boxService.style[0].top < this.boxService.style[index_count].top) ) 
-                
-                {
-                    
-                    let count_before = 0
-                    count_before = this.boxService.countlevel_before(this.boxService.index_up + 1, 3);
-
-                    //'basso Destra'
-                   
-                    let angle1 = angle + (step) * (index_box - this.boxService.index_up - 1);
-                    
-
-                    x = Math.round(this.boxService.secondaryRadiusX/2 + radius * Math.cos(angle1));
-                    y = Math.round(this.boxService.secondaryRadiusY/2 + radius * Math.sin(angle1));
-                }
-
-                if ((this.boxService.style[0].left < this.boxService.style[index_count].left) && (this.boxService.style[0].top >= this.boxService.style[index_count].top) ) 
-                
-                {
-
-                    let count_before = 0
-                    count_before = this.boxService.countlevel_before(this.boxService.index_up + 1, 4);
-
-                    // 'Alto Destra');
-                    
-
-                   let angle1 = angle + (step) * (index_box - this.boxService.index_up - 1);
-
-                    x = Math.round(this.boxService.secondaryRadiusX/2 + radius * Math.cos(angle1));
-                    y = Math.round(this.boxService.secondaryRadiusY/2 + radius * Math.sin(angle1));
-                } 
- */
-  
-
-      
-        let width = window.innerWidth/2
+            y = Math.round(this.boxService.secondaryRadiusY/2 + radius * Math.sin(angle1));   
+                          
+            let width = window.innerWidth/2
         
-        //x = x + width/2;
-        x = x + 300;
+            //x = x + width/2;
+            x = x + 300;
 
-        y = y + 300;
-       
-       
+            y = y + 300;  
            
-        return {x,y}
+            return {x,y}
 
-    // siamo in un nodo annidato
- // Questo viene escluso//
-        } else {
-           
+            // siamo in un nodo annidato
+            // Questo viene escluso//
+
+            } 
+                else 
+            { 
                 // Cerchio secondario Per annidati
 
                 let radius = 150; // radius of the circle
@@ -402,11 +325,9 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
                 this.box.color = '#' + this.boxService.colorArray[index_box];
                 
                 let width = window.innerWidth/2  
-
-                
+            
                 let height = 500;
-                //let height = window.innerHeight/2;
-                                
+                //let height = window.innerHeight/2;                            
                 
                 let angle = -(Math.PI)/6 - Math.PI;
                 //let angle = (Math.PI)/9 + Math.PI;
@@ -455,7 +376,14 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
         this.init_resize = true;
         if (this.box.titolo && (this.box.numero_mappa == this.id_mappa)) {
                  
-            this.box.rectangle.left = window.innerWidth/2 - 100;
+            // this.box.rectangle.left = window.innerWidth/2 - 100;
+
+            this.box.rectangle.left = 500;
+        
+            // let baricentro = this.boxService.getBaricentro();
+            // console.log('Baricentro: ', this.style);
+
+            // this.box.rectangle.left = baricentro[0];
             
             this.boxService.editTitolo(this.box)
         }
@@ -641,6 +569,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
      this.longtap(event);
      this.widthEditor = this.editor.container.clientWidth;
     
+    
      
      //Tolto 2103
      //this.updateRelation.emit();
@@ -662,6 +591,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
             }, 2000);  */
             
            // this.isMove = true;
+         
            if (!this.box.titolo )    
                {                 
                 this.aggiornaRelation.emit(this.index_box)       
@@ -1517,15 +1447,23 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
     
     onEditorCreated(quill) 
         {
-        this.editor = quill;
+            this.editor = quill
+            console.log('this.editor ', this.editor);
          }
 
       
 
-     positionBox(new_height, new_width, flag_width) {
+    positionBox(new_height, new_width, flag_width) {    
 
         let change_width;
         let change_height;
+
+        // Inserito per fissare larghezza max
+        if (new_width > 200) {
+            change_width = 200;
+        }
+
+         // Inserito per fissare larghezza max
 
         const posizione = new BoxPosition (this.boxService.boxes[0].rectangle.top, this.boxService.boxes[0].rectangle.left, 0);
         
@@ -1552,23 +1490,18 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
             else 
             {
                 
-                change_height = new_height;
-        
-                
-                //Altrimenti va a capo con min-width
-                //change_width = this.box.rectangle.width
+                change_height = new_height;     
                
             }
 
         if (this.box.rectangle.left != 999) {
-        /* if (this.box.inMap) { */
+     
 
             this.style[this.number_box] = {
-        
-           // 21 12 2017 prima niente
+
              position: 'absolute',
         
-             left: `${this.box.rectangle.left}px`,
+             left: `${this.box.rectangle.left }px`,
              top: `${this.box.rectangle.top}px`,
              
              width: `${change_width}px`,
@@ -1625,25 +1558,36 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
                 position: 'absolute',
                 left: `${this.position_box.x}px`,
                 top: `${this.position_box.y}px`,
-                ////width: `${new_width + 20}px`,
+                
+                // cambiamo per fissare larghezza max a 200?
                 //width: `${200}px`,
-                //height: `${80}px`
-                ////height: `${new_height + 20}px`
-                height: `${change_height}px`,
                 width: `${change_width}px`,
+               
+                //height: `${change_height}px`,
+                // cambiamo per fissare larghezza max a 200?
+
+                ////height: `${new_height + 20}px`
+                   
               }    
               const posizione = new BoxPosition (this.position_box.y, this.position_box.x, this.index_box);
              
               this.boxService.addStyle(posizione);
-            
+        
               
             } else if (this.box.titolo) {
-                
+                let baricentro = this.boxService.getBaricentro();
+                console.log('Baricentro: ', baricentro);
                 
                 this.style[this.number_box] = {
                     position: 'absolute',
-                    left: `${this.box.rectangle.left}px`,
-                    top: `${this.box.rectangle.top}px`,
+                    // left: `${this.box.rectangle.left}px`,
+                    // top: `${this.box.rectangle.top}px`,
+
+
+                    left: `${baricentro[0]}px`,
+                    top: `${baricentro[1]}px`,
+
+
                     //width: `${new_width + 20}px`,
                    // width: `${this.box.rectangle.width}px`,
                     //height: `${80}px`
@@ -1653,7 +1597,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
                   }  
                   const posizione = new BoxPosition (this.box.rectangle.top, this.box.rectangle.left, this.index_box);
                   
-                     this.boxService.addStyle(posizione);
+                  this.boxService.addStyle(posizione);
              }
          }
 
@@ -1667,10 +1611,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
         if (event.text.length != 1)
         {
  
-          this.box.content = event.html;       
-          
-          //console.log(event.editor.container.clientHeight, event.editor.container.clientWidth)
-
+          this.box.content = event.html; 
 
           this.positionBox(event.editor.container.clientHeight, event.editor.container.clientWidth, false);
         

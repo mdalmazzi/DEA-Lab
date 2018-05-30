@@ -16,8 +16,7 @@ export class IdeaService {
 
        //private path_to_server: string = 'http://localhost:3000';
 
-       private path_to_server: string = 'http://192.168.1.6:3000'; 
- 
+    private path_to_server: string = 'http://localhost:3000'; 
 
     boxisedit = new EventEmitter<Box>();
     titoloisedit = new EventEmitter<Box>();

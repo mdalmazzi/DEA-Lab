@@ -31,8 +31,7 @@ export class TestoService {
 
     //private path_to_server: string = 'http://localhost:3000';
 
-    private path_to_server: string = 'http://192.168.1.6:3000'; 
- 
+    private path_to_server: string = 'http://localhost:3000'; 
 
     constructor(private http: Http) {}
 

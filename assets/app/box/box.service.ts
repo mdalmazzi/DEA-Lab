@@ -44,13 +44,28 @@ export class BoxService {
 
     //private path_to_server: string = 'https://labscrittura-labscrittura-staging.eu-central-1.elasticbeanstalk.com'
 
-    private path_to_server: string = 'http://192.168.1.6:3000'; 
+    private path_to_server: string = 'http://localhost:3000'; 
 
     constructor(private http: Http) {
-        this.style = [];
+        this.style = [];         
+    }
+
+    getBaricentro() {
         
-        
-        
+        let bar_x : number = 0;
+        let bar_y : number = 0;
+
+        for (var i=0; i<(this.boxes.length); i++) { 
+            if (this.boxes[i].livello == 0 && !this.boxes[i].titolo)
+            {
+                bar_x = bar_x + this.boxes[i].rectangle.left;
+                bar_y = bar_y + this.boxes[i].rectangle.top;
+                console.log(this.boxes[i].rectangle.left, this.boxes[i].rectangle.top);
+            }   
+        }
+        console.log(bar_x/(this.boxes.length-1), bar_y/(this.boxes.length-1));
+        return (bar_x/(this.boxes.length-1), bar_y/(this.boxes.length-1));
+
     }
 
     cleanStyle() {
