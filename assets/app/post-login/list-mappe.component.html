@@ -1,0 +1,65 @@
+<section class="wrapper latest-doc">
+    <h3 class="section-title">Documenti d'esempio</h3>
+    <ul class="clearfix box">
+        <li>
+            <a href="#">
+                <img src="/img/icon-mini-idee.png" class="right" />
+                <h3>Idee</h3>
+                <h1>Questo è il titolo del primo documento di esempio</h1>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="/img/icon-mini-scaletta.png" class="right" />
+                <h3>Scaletta</h3>
+                <h1>Titolo di un secondo documento di esempio</h1>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="/img/icon-mini-mappa.png" class="right" />
+                <h3>Mappa</h3>
+                <h1>Questo è il titolo del terzo documento di esempio ed è più lungo della media degli altri titoli</h1>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <img src="/img/icon-mini-testo.png" class="right" />
+                <h3>Testo</h3>
+                <h1>Questo è il titolo del quarto documento di esempio, leggermente più lungo</h1>
+            </a>
+        </li>
+    </ul>
+</section>
+
+<section class="wrapper my-doc">
+    <h3 class="section-title">I miei documenti</h3>
+    <ul class="clearfix box">
+
+        <li class="last">
+            <app-input-mappa></app-input-mappa>
+        </li>
+
+        <ng-template ngFor let-box [ngForOf]="boxes" let-i="index">
+
+            <li *ngIf="box.titolo">
+                <!--  <app-postlogin [box]="box" [byfour]="i" [numero_mappa]="i+1" 
+        *ngFor="let box of boxes; let i=index"> -->
+
+                <app-postlogin *ngIf="box.titolo" [box]="box" [byfour]="i" [numero_mappa]="i+1">
+
+                </app-postlogin>
+
+
+
+            </li>
+
+        </ng-template>
+        <!-- <li class="last">
+            <app-input-mappa></app-input-mappa>
+        </li> -->
+
+    </ul>
+</section>
+
+<!-- <app-alert4 [box]=box [alert_testo]=alertTesto *ngIf="boxService.alert_visibility" (alertVisibility)="alert_Visibility()"></app-alert4> -->

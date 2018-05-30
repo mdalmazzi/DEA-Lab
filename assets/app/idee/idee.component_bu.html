@@ -1,0 +1,60 @@
+<ng-sidebar-container style="height: 100vh;">
+    <ng-sidebar [(opened)]="_opened" [mode]="_MODES[_modeNum]" [keyClose]="_keyClose" [position]="_POSITIONS[_positionNum]" [dock]="_dock" [dockedSize]="'50px'" [autoCollapseHeight]="_autoCollapseHeight" [autoCollapseWidth]="_autoCollapseWidth" [closeOnClickOutside]="_closeOnClickOutside"
+        [closeOnClickBackdrop]="_closeOnClickBackdrop" [showBackdrop]="_showBackdrop" [animate]="_animate" [trapFocus]="_trapFocus" [autoFocus]="_autoFocus" [sidebarClass]="'demo-sidebar'" [ariaLabel]="'My sidebar'" (onOpenStart)="_onOpenStart()" (onOpened)="_onOpened()"
+        (onCloseStart)="_onCloseStart()" (onClosed)="_onClosed()">
+
+        <!-- <button class="demo-control" (click)="_toggleOpened()">Close sidebar</button>
+            <p><a closeSidebar>This will close the sidebar too</a></p>
+            <hr> -->
+
+
+
+        <p>Per raccogliere le idee su un fenomeno </p>
+        <p>o su un tema, prova a farti </p>
+        <p>qualche domanda-chiave a riguardo, </p>
+        <p>per esempio:</p>
+        <!-- <button class="demo-control" (click)="_toggleOpened()">Close sidebar</button>
+            <p><a closeSidebar>This will close the sidebar too</a></p> -->
+        <ul>
+            <li>
+                Perché è rilevante? Come si può definire? <br> Quali e quanti tipi ne esistono? Chi coinvolge? <br>Quali sono i suoi aspetti più importanti o caratteristici? <br>Quando si verifica? Dove? Con quali modalità?<br> Quali sono le cause? <br>Quali
+                le conseguenze?<br>Come si è sviluppato?
+            </li>
+        </ul>
+
+
+    </ng-sidebar>
+
+
+    <div ng-sidebar-content>
+        <!--  <header class="demo-header">
+                <button (click)="_toggleOpened()" class="demo-header__toggle">Toggle sidebar</button>
+                <span>ng-sidebar</span>
+            </header> -->
+        <!--   <section class="demo-contents">
+     -->
+        <!-- <aside>
+                <a (click)="_toggleSidebar()">
+                    <img class="open" *ngIf="!_opened" src="/img/aside-open.png" />
+                    <img class="open" *ngIf="_opened" src="/img/aside-close.png" />
+    
+                </a>
+            </aside> -->
+
+
+        <section class="demo-contents">
+
+
+            <app--idee-list></app--idee-list>
+
+
+
+
+        </section>
+
+        <!--     </section> -->
+
+
+    </div>
+
+</ng-sidebar-container>

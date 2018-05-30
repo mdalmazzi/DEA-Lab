@@ -1,0 +1,201 @@
+<a class="right " style="z-index: 999" *ngIf="box.numero_mappa == id_mappa && !box.titolo && box.livello == 0" [ngClass]="{'arrow-up' : visible_status,'arrow-down' : !visible_status}" (click)="change_Visible_Status()"></a>
+
+
+<span class="title tooltip" *ngIf="box.numero_mappa == id_mappa && !box.titolo && box.livello == 0" [ngDrag]="true" [dragAxis]="{x:drag_x, y:drag_y}" [dragSnapGrid]="{x: 1, y: 1}" [handle]="header_move" (direction_step_reorder)="onDirection_y($event)"
+    (direction_step)="onDirection_x($event)" (started)="onStartedDrag($event)" #header_move [style.cursor]="cursor" (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.border-style]="border" [style.border-bottom]="border_bottom">
+    
+
+<!-- <span style= "z-index: 999" class="right glyphicon close" (click)="change_Visible_Status()" [ngClass]="{'glyphicon-triangle-top' : visible_status,'glyphicon-triangle-bottom' : !visible_status}"></span> -->
+
+<quill-editor id="editor-container_scaletta" class="left" [(ngModel)]="box.content" [options]="editorOptionsTitolo" (blur)="onEditorBluredTitolo($event)" (focus)="onEditorFocusedTitolo($event)" (ready)="onEditorCreatedTitolo($event)" (change)="onContentChangedTitolo($event)"></quill-editor>
+
+<!-- <a class="right" [ngClass]="{'arrow-up' : visible_status,'arrow-down' : !visible_status}" (click)="change_Visible_Status()"></a> -->
+
+
+
+
+<div class="panel-body" *ngIf="visible_status">
+
+    <quill-editor [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
+
+
+    <!-- <div>
+
+        <span class="glyphicon glyphicon-remove-sign close" aria-hidden="true" (click)="onDelete()"></span>
+    </div> -->
+</div>
+
+
+</span>
+
+<a class="right" style="z-index: 999" *ngIf="box.numero_mappa == id_mappa && !box.titolo && box.livello == 1" [ngClass]="{'arrow-up' : visible_status,'arrow-down' : !visible_status}" (click)="change_Visible_Status()"></a>
+
+<span class="title" *ngIf="box.numero_mappa == id_mappa && !box.titolo && box.livello == 1" [ngDrag]="true" [dragAxis]="{x:drag_x, y:drag_y}" [dragSnapGrid]="{x: 1, y: 1}" [handle]="header_move" (direction_step_reorder)="onDirection_y($event)" (direction_step)="onDirection_x($event)"
+    (started)="onStartedDrag($event)" #header_move [style.cursor]="cursor" (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.border-style]="border" [style.border-bottom]="border_bottom">
+
+
+  <!--   <span style= "z-index: 999" class="right glyphicon close" (click)="change_Visible_Status()" [ngClass]="{'glyphicon-triangle-top' : visible_status,'glyphicon-triangle-bottom' : !visible_status}"></span> -->
+
+<quill-editor id="editor-container_scaletta" class="left" [(ngModel)]="box.content" [options]="editorOptionsTitolo" (blur)="onEditorBluredTitolo($event)" (focus)="onEditorFocusedTitolo($event)" (ready)="onEditorCreatedTitolo($event)" (change)="onContentChangedTitolo($event)"></quill-editor>
+
+<!-- <a class="right" [ngClass]="{'arrow-up' : visible_status,'arrow-down' : !visible_status}" (click)="change_Visible_Status()"></a> -->
+
+
+<div class="panel-body" *ngIf="visible_status" (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()">
+
+    <quill-editor [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
+    <!-- <div>
+
+        <span class="glyphicon glyphicon-remove-sign close" aria-hidden="true" (click)="onDelete()"></span>
+
+    </div> -->
+</div>
+
+</span>
+
+<a class="right" style="z-index: 999" *ngIf="box.numero_mappa == id_mappa && !box.titolo && box.livello == 2" [ngClass]="{'arrow-up' : visible_status,'arrow-down' : !visible_status}" (click)="change_Visible_Status()"></a>
+
+<span class="title" *ngIf="box.numero_mappa == id_mappa && !box.titolo && box.livello == 2" [ngDrag]="true" [dragAxis]="{x:drag_x, y:drag_y}" [dragSnapGrid]="{x: 1, y: 1}" [handle]="header_move" (direction_step_reorder)="onDirection_y($event)" (direction_step)="onDirection_x($event)"
+    (started)="onStartedDrag($event)" #header_move [style.cursor]="cursor" (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.border-style]="border" [style.border-bottom]="border_bottom">    
+
+
+    <quill-editor id="editor-container_scaletta" class="left" [(ngModel)]="box.content" [options]="editorOptionsTitolo" (blur)="onEditorBluredTitolo($event)" (focus)="onEditorFocusedTitolo($event)" (ready)="onEditorCreatedTitolo($event)" (change)="onContentChangedTitolo($event)"></quill-editor>
+
+<!-- <a class="right" [ngClass]="{'arrow-up' : visible_status,'arrow-down' : !visible_status}" (click)="change_Visible_Status()"></a> -->
+
+
+    <div class="panel-body" *ngIf="visible_status">
+
+         <quill-editor [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
+
+    </div>
+
+</span>
+
+<!--   </div> -->
+<!-- </ng-template> -->
+
+<ng-template #Blocklivello3>
+
+    <div class="col-xs-9 col-xs-offset-3" *ngIf="box.livello == 3 && max_right == 0; else Blocklivello4">
+
+        <div class="panel panel-default" *ngIf="box.numero_mappa == id_mappa && !box.titolo" [ngDrag]="true" [dragAxis]="{x:false, y:true}" [dragSnapGrid]="{x: 1, y: 1}" [handle]="header_move" (direction_step)="onDirection_bis($event)" (direction_step_reorder)="onDirection($event)"
+            (started)="onStartedDrag($event)">
+            <div #header_move class="panel-heading">
+
+                <div class="panel-title">
+                    <div class="row">
+                        <div class="col-xs-10">
+
+
+                            <quill-editor [(ngModel)]="box.content" [options]="editorOptionsTitolo" (blur)="onEditorBluredTitolo($event)" (focus)="onEditorFocusedTitolo($event)" (ready)="onEditorCreatedTitolo($event)" (change)="onContentChangedTitolo($event)"></quill-editor>
+
+
+                        </div>
+                        <div class="col-xs-2">
+                            <span class="glyphicon close" (click)="change_Visible_Status()" [ngClass]="{
+                                        'glyphicon-triangle-top' : visible_status,
+                                        'glyphicon-triangle-bottom' : !visible_status}">
+                          
+                                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body" *ngIf="visible_status">
+
+                <quill-editor [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
+                <div>
+
+                    <span class="glyphicon glyphicon-remove-sign close" aria-hidden="true" (click)="onDelete()"></span>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+</ng-template>
+
+<ng-template #Blocklivello4>
+
+    <div class="col-xs-9 col-xs-offset-3" *ngIf="box.livello == 3 && max_right != 0; else Blocklivello5">
+
+        <div class="panel panel-default" *ngIf="box.numero_mappa == id_mappa && !box.titolo" [ngDrag]="true" [dragAxis]="{x:false, y:true}" [dragSnapGrid]="{x: 1, y: 1}" [handle]="header_move" (direction_step)="onDirection_bis($event)" (direction_step_reorder)="onDirection($event)"
+            (started)="onStartedDrag($event)">
+            <div #header_move class="panel-heading">
+
+                <div class="panel-title">
+                    <div class="row">
+                        <div class="col-xs-10">
+
+                            <quill-editor [(ngModel)]="box.content" [options]="editorOptionsTitolo" (blur)="onEditorBluredTitolo($event)" (focus)="onEditorFocusedTitolo($event)" (ready)="onEditorCreatedTitolo($event)" (change)="onContentChangedTitolo($event)"></quill-editor>
+
+
+                        </div>
+                        <div class="col-xs-2">
+                            <span class="glyphicon close" (click)="change_Visible_Status()" [ngClass]="{
+                                            'glyphicon-triangle-top' : visible_status,
+                                            'glyphicon-triangle-bottom' : !visible_status}">
+                              
+                                                </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body" *ngIf="visible_status">
+
+                <quill-editor [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
+                <div>
+
+                    <span class="glyphicon glyphicon-remove-sign close" aria-hidden="true" (click)="onDelete()"></span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</ng-template>
+
+<ng-template #Blocklivello5>
+
+    <div class="col-xs-12" *ngIf="box.livello == 0 && max_left != 0;">
+
+        <div class="panel panel-default" *ngIf="box.numero_mappa == id_mappa && !box.titolo" [ngDrag]="true" [dragAxis]="{x:false, y:true}" [dragSnapGrid]="{x: 1, y: 1}" [handle]="header_move" (direction_step)="onDirection_bis($event)" (direction_step_reorder)="onDirection($event)"
+            (started)="onStartedDrag($event)">
+            <div #header_move class="panel-heading">
+
+                <div class="panel-title">
+                    <div class="row">
+                        <div class="col-xs-10">
+
+                            <quill-editor [(ngModel)]="box.content" [options]="editorOptionsTitolo" (blur)="onEditorBluredTitolo($event)" (focus)="onEditorFocusedTitolo($event)" (ready)="onEditorCreatedTitolo($event)" (change)="onContentChangedTitolo($event)"></quill-editor>
+
+
+                        </div>
+                        <div class="col-xs-2">
+                            <span class="glyphicon close" (click)="change_Visible_Status()" [ngClass]="{
+                                                'glyphicon-triangle-top' : visible_status,
+                                                'glyphicon-triangle-bottom' : !visible_status}">
+                                  
+                                                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body" *ngIf="visible_status">
+
+                <quill-editor [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
+                <div>
+
+                    <span class="glyphicon glyphicon-remove-sign close" aria-hidden="true" (click)="onDelete()"></span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</ng-template>

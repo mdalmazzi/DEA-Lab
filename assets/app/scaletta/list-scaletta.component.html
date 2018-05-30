@@ -1,0 +1,32 @@
+<!-- <section class="panel wrapper"> -->
+
+<section class="lista scaletta">
+
+
+    <article class="level1">
+        <app-intestazione [content]="'Introduzione'"></app-intestazione>
+    </article>
+
+    <article *ngFor="let box of boxes; let i=index;" [ngClass]="{'level1': box.livello == 0, 'level2': box.livello == 1, 'level3': box.livello == 2, 'open': visibility[i]}">
+
+        <app-scaletta (scaletta_open)="open_scaletta($event)" [box]="box" [index_box]="i"></app-scaletta>
+
+
+    </article>
+    <article class="level1">
+        <app-intestazione [content]="'Conclusione'"></app-intestazione>
+    </article>
+
+</section>
+
+<!-- </section> -->
+<!-- <div class="row">
+    <div class="col-md-5 col-md-offset-6">
+        <div class="panel panel-default">
+            <div class="panel-body" (click)="onSubmit_4()">
+                Aggiungi una nuova casella
+                <span class="glyphicon glyphicon-plus close" aria-hidden="true"></span>
+            </div>
+        </div>
+    </div>
+</div> -->

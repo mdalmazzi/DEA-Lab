@@ -1,0 +1,15 @@
+<app-alert [box]=box [alert_testo]=alertTesto *ngIf="boxService.alert_visibilityTooltip[index_box_tooltip]" (alertVisibility)="alert_Visibility_Tooltip()"></app-alert>
+
+<div class="tooltips clearfix" style="width: 335px">
+    <span (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.cursor]="cursor" class="blue" (mousedown)="settaColor('228ae6')">      
+    </span>
+    <span (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.cursor]="cursor" class="celeste" (mousedown)="settaColor('a3daff')"></span>
+    <span (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.cursor]="cursor" class="rosso" (mousedown)="settaColor('fa5252')"></span>
+    <span (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.cursor]="cursor" class="rosa" (mousedown)="settaColor('ffa8a8')"></span>
+    <span (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.cursor]="cursor" class="arancio" (mousedown)="settaColor('f08c00')"></span>
+    <span (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.cursor]="cursor" class="giallo" (mousedown)="settaColor('ffd43b')"></span>
+    <span (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.cursor]="cursor" class="verde" (mousedown)="settaColor('a9e34b')"></span>
+    <span (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.cursor]="cursor" class="smeraldo" (mousedown)="settaColor('20c997')"></span>
+
+    <a (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.cursor]="cursor" (mousedown)="onDelete()">Elimina</a>
+</div>

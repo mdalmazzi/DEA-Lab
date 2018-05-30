@@ -1,0 +1,95 @@
+<!-- <article class="level1" *ngIf="box.numero_mappa == id_mappa && box.livello == 0 && max_left == 0; else Blocklivello1"> -->
+<app-alert2 *ngIf="alert_visibility" [box]=box [alert_testo]=alertTesto (alertVisibility)="alert_Visibility()"></app-alert2>
+
+<a style="z-index:999" style="z-index: 999" *ngIf="belongsToUser() && !belongsToMappa() && box.livello == 0" (click)="onDelete()" class="right "><img src="/img/list-delete.png" /></a>
+
+<span id="primoQuill" class="title" *ngIf="belongsToUser() && !belongsToMappa() && box.livello == 0" [ngDrag]="flag_move" [dragAxis]="{x:true, y:false}" [dragSnapGrid]="{x: 1, y: 0}" (started)="onStarted($event)" (direction_step)="onDirection($event)">   
+        
+    <quill-editor  [attr.id]="'editor-container' + number_idea" style="width: 70%;" class="left" [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
+
+
+
+</span>
+
+
+
+
+<a style="z-index: 999" *ngIf="belongsToUser() && !belongsToMappa() && box.livello == 1" (click)="onDelete()" class="right "><img src="/img/list-delete.png" /></a>
+
+<span class="title" *ngIf="belongsToUser() && !belongsToMappa() && box.livello == 1" [ngDrag]="flag_move" [dragAxis]="{x:true, y:false}" [dragSnapGrid]="{x: 1, y: 0}" (direction_step)="onDirection($event)"> 
+
+    <quill-editor [attr.id]="'editor-container' + number_idea"  style="width: 70%;" class="left" [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
+    <!-- 
+        <a (click)="onDelete()" class="right"><img src="/img/list-delete.png"/></a> -->
+
+</span>
+
+
+
+<a style="z-index: 999" *ngIf="belongsToUser() && !belongsToMappa() && box.livello == 2" (click)="onDelete()" class="right "><img src="/img/list-delete.png" /></a>
+
+
+<span class="title" *ngIf="belongsToUser() && !belongsToMappa() && box.livello == 2" [ngDrag]="flag_move" [dragAxis]="{x:true, y:false}" [dragSnapGrid]="{x: 1, y: 0}" (direction_step)="onDirection($event)"> 
+                          
+    <quill-editor [attr.id]="'editor-container' + number_idea"  style="width: 70%;" class="left" [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"
+    ></quill-editor>
+
+<!-- <a (click)="onDelete()" class="right"><img src="/img/list-delete.png"/></a> -->
+
+</span>
+
+
+
+<ng-template #Blocklivello1>
+
+    <!--   <article class="level2" *ngIf="box.numero_mappa == id_mappa && box.livello == 1; else Blocklivello2">
+        <span *ngIf="belongsToUser() && !belongsToMappa()" [ngDrag]="flag_move" [dragAxis]="{x:true, y:false}" [dragSnapGrid]="{x: 1, y: 0}" (direction_step)="onDirection($event)">
+                                                                 
+    <a (click)="onDelete()" class="right"><img src="/img/list-delete.png"/></a>
+                        
+    <quill-editor [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
+                                                                    
+    </span>
+
+    </article> -->
+
+</ng-template>
+
+<ng-template #Blocklivello2>
+
+    <!--  <article class="level3" *ngIf="box.numero_mappa == id_mappa && box.livello == 2 ; else Blocklivello5">
+        <span *ngIf="belongsToUser() && !belongsToMappa()" [ngDrag]="flag_move" [dragAxis]="{x:true, y:false}" [dragSnapGrid]="{x: 1, y: 0}" (direction_step)="onDirection($event)">
+                                            
+                                              
+        <a (click)="onDelete()" class="right"><img src="/img/list-delete.png"/></a>
+                                
+        <quill-editor [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
+                                               
+                                        
+         </span>
+
+    </article> -->
+
+</ng-template>
+
+<ng-template #Blocklivello3>
+
+</ng-template>
+
+<ng-template #Blocklivello4>
+
+</ng-template>
+
+<ng-template #Blocklivello5>
+
+    <!--  <article class="level1" *ngIf="box.numero_mappa == id_mappa && box.livello == 0 && max_left != 0; ">
+        <span *ngIf="belongsToUser() && !belongsToMappa()" [ngDrag]="flag_move" [dragAxis]="{x:true, y:false}" [dragSnapGrid]="{x: 1, y: 0}" (direction_step)="onDirection($event)">
+       
+        <a (click)="onDelete()" class="right"><img src="/img/list-delete.png"/></a>                 
+                                                    
+        <quill-editor style="width:700px"[(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
+                                        
+        </span>
+    </article> -->
+
+</ng-template>

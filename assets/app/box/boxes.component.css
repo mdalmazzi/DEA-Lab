@@ -1,0 +1,5 @@
+#svgContainer {
+    z-index: -10;
+    position: absolute;
+    margin: 0 auto;
+}

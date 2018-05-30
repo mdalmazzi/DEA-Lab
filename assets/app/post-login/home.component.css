@@ -1,0 +1,500 @@
+@media (min-width: 992px) {
+    .equal {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+    }
+}
+
+.panel {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* ==========================================================================
+   HTML5 Boilerplate styles - h5bp.com global style
+   ========================================================================== */
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
+
+body {
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+ ::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+ ::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+img {
+    vertical-align: middle;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.chromeframe {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+
+/***** Clear fix *****/
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+* html .clearfix {
+    zoom: 1;
+}
+
+
+/* IE6 */
+
+*:first-child+html .clearfix {
+    zoom: 1;
+}
+
+
+/* IE7 */
+
+
+/***** Linkz *****/
+
+a {
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+
+/* ===== Initializr Styles ==================================================
+         Author: Marco Giusti - http://sid05.com
+         ========================================================================== */
+
+body {
+    font: 16px/26px Helvetica, Helvetica Neue, Arial;
+    margin: 0;
+}
+
+.wrapper {
+    width: 96%;
+    margin: 0 2%;
+}
+
+.right {
+    float: right;
+}
+
+
+/* ==========================================================================
+         Custom styles
+         ========================================================================== */
+
+
+/********** HEADER **********/
+
+
+/*** supNav ***/
+
+.supNav {
+    background: #eeebe5;
+    margin: 0;
+}
+
+
+/*** midNav ***/
+
+.midNav {
+    background: #eb2c47;
+}
+
+.midNav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    padding: 10px 0;
+    float: right;
+}
+
+.midNav ul li {
+    display: inline-table;
+}
+
+.midNav ul a {
+    color: #fff;
+    text-decoration: none;
+    font-style: italic;
+    text-align: right;
+    font-size: 0.9em;
+    display: block;
+    line-height: 1.1;
+}
+
+.midNav ul a span {
+    display: block;
+    font-style: normal;
+    font-weight: bold;
+}
+
+
+/*** subNav ***/
+
+.subNav {
+    background: #dbdbdb;
+}
+
+.subNav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    padding: 6px 0;
+    float: right;
+}
+
+.subNav ul li {
+    display: inline-table;
+}
+
+.subNav ul a {
+    background: #999999;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    text-align: center;
+    width: 38px;
+    height: 35px;
+    display: block;
+    padding: 3px 0 0 0;
+}
+
+.subNav ul a:hover {
+    background: #222;
+}
+
+
+/********** HOME **********/
+
+h3.section-title {
+    border-bottom: 2px solid #dbdbdb;
+    font-size: 1em;
+    margin: 1em 0;
+}
+
+ul.box {
+    margin: 1em 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul.box li {
+    background: #f0f0f0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+}
+
+ul.box li a {
+    color: #222;
+    text-decoration: none;
+}
+
+ul.box li a h3 {
+    font-weight: normal;
+    color: #8d8d8d;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    margin: 0.25em 0;
+}
+
+ul.box li a h1 {
+    font-size: 1em;
+    margin: 0.25em 0;
+    line-height: 1.4;
+}
+
+
+/*** documenti di esempio ***/
+
+.latest-doc .box li {
+    margin: 0 2.66666666667% 0 0;
+    width: 23%;
+    min-height: 160px;
+    border-top: 10px solid #eb2c47;
+    padding: 10px;
+}
+
+.latest-doc .box li:last-child {
+    margin: 0;
+}
+
+.latest-doc .box li a img.right {
+    margin-top: -4px;
+}
+
+
+/*** i miei documenti ***/
+
+.my-doc .box li {
+    margin: 0 2% 1em 0;
+    width: 32%;
+    min-height: 250px;
+    position: relative;
+    overflow: hidden;
+}
+
+.my-doc .box li:nth-child(3n) {
+    margin: 0 0 1em 0;
+}
+
+.my-doc .box .right {
+    position: absolute;
+    top: -40px;
+    right: 10px;
+    z-index: 999;
+}
+
+.my-doc .box .full {
+    width: 100%;
+    height: auto;
+    z-index: 99;
+}
+
+.my-doc .box li div {
+    padding: 10px;
+    position: relative;
+}
+
+.my-doc .box li p {
+    display: none;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.my-doc .box li:hover p {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0px;
+    left: 0px;
+    z-index: 9999;
+}
+
+.my-doc .box li p span {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    display: in
+}
+
+.my-doc .box .last {
+    text-align: center;
+}
+
+.my-doc .box .last a {
+    display: block;
+    height: 100%;
+    padding: 50px 10px 10px 10px;
+    border: 2px dashed #ccc;
+    min-height: 250px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.my-doc .box .last a:hover {
+    border: 2px dashed #bbb;
+}
+
+
+/********** FOOTER **********/
+
+footer {
+    background: #eeebe5;
+    margin: 2em 0 0 0;
+}
+
+footer div {
+    padding: 1em 0;
+}
+
+
+/* ==========================================================================
+         Media Queries
+         ========================================================================== */
+
+@media only screen and (min-width: 480px) {}
+
+@media only screen and (min-width: 768px) {}
+
+@media only screen and (min-width: 1140px) {
+    .wrapper {
+        width: 1026px;
+        /* 1140px - 10% for margins */
+        margin: 0 auto;
+    }
+}
+
+
+/* ==========================================================================
+         Helper classes
+         ========================================================================== */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+
+/* ==========================================================================
+         Print styles
+         ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important;
+        /* Black prints faster: h5bp.com/s */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+    /** Don't show links for images, or javascript/internal links **/
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+    thead {
+        display: table-header-group;
+        /* h5bp.com/t */
+    }
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+    img {
+        max-width: 100% !important;
+    }
+    @page {
+        margin: 0.5cm;
+    }
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}

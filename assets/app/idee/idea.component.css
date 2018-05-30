@@ -1,0 +1,25 @@
+.ng-draggable {
+    cursor: move;
+}
+
+.form-control .quill-editor {
+    overflow: invisible;
+}
+
+.form-group {
+    border: 1px solid #ccc;
+    position: relative;
+}
+
+
+/* .quill-editor {
+    min-height: 20px;
+    padding: 5px 5px;
+    padding-bottom: 1rem;
+    padding-top: 5px;
+}
+ */
+
+.ql-container .ql-editor {
+    max-width: 150px;
+}

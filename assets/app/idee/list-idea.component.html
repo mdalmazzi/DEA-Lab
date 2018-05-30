@@ -1,0 +1,14 @@
+<!-- <section class="panel wrapper"> -->
+<section class="lista">
+
+    <article *ngFor="let box of boxes; let i=index;" [ngClass]="{'level1': box.livello == 0, 'level2': box.livello == 1, 'level3': box.livello == 2}">
+
+        <app-idea [number_idea]="i" [box]="box" [flag_move]="true">
+        </app-idea>
+
+    </article>
+    <article (click)="onSubmit_4()" class="add-item"><span class="title">Aggiungi una nuova idea</span>
+    </article>
+
+</section>
+<!-- </section> -->

@@ -1,0 +1,1213 @@
+/* ==========================================================================
+   HTML5 Boilerplate styles - h5bp.com global style
+   ========================================================================== */
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
+
+body {
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+ ::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+ ::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+img {
+    vertical-align: middle;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.chromeframe {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+
+/***** Clear fix *****/
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+* html .clearfix {
+    zoom: 1;
+}
+
+
+/* IE6 */
+
+*:first-child+html .clearfix {
+    zoom: 1;
+}
+
+
+/* IE7 */
+
+
+/***** Linkz *****/
+
+a {}
+
+
+/* ===== Initializr Styles ==================================================
+      Author: Marco Giusti - http://sid05.com
+      ========================================================================== */
+
+body {
+    font: 16px/26px Helvetica, Helvetica Neue, Arial;
+    margin: 0;
+}
+
+.wrapper {
+    width: 96%;
+    margin: 0 2%;
+}
+
+.right {
+    float: right;
+}
+
+
+/********** Style Reset **********/
+
+body p {
+    display: block;
+    -webkit-margin-before: 0px;
+    -webkit-margin-after: 0px;
+    webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-size: 1em;
+}
+
+
+/* ==========================================================================
+      Font Face
+      ========================================================================== */
+
+
+/********** DeA-font **********/
+
+@font-face {
+    font-family: 'testmedea_sansbold';
+    src: url('font/testmedea_sans_bold-webfont.woff2') format('woff2'), url('font/testmedea_sans_bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'testmedea_sansbolditalic';
+    src: url('font/testmedea_sans_bolditalic-webfont.woff2') format('woff2'), url('font/testmedea_sans_bolditalic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'testmedea_sansitalic';
+    src: url('font/testmedea_sans_italic-webfont.woff2') format('woff2'), url('font/testmedea_sans_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'testmedea_sansregular';
+    src: url('font/testmedea_sans_regular-webfont.woff2') format('woff2'), url('font/testmedea_sans_regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body.DeA-font {
+    font-family: 'testmedea-sansregular', sans-serif;
+}
+
+body.DeA-font em,
+body.DeA-font i {
+    font-family: 'testmedea-sansitalic', sans-serif;
+    font-style: normal;
+}
+
+body.DeA-font strong,
+body.DeA-font b {
+    font-family: 'testmedea-sansbold', sans-serif;
+    font-weight: normal;
+}
+
+body.DeA-font strong em,
+body.DeA-font em strong {
+    font-family: 'testmedea-sansbolditalic', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/********** PT-font **********/
+
+@font-face {
+    font-family: 'pt_sansregular';
+    src: url('font/pts55f-webfont.woff2') format('woff2'), url('font/pts55f-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'pt_sansitalic';
+    src: url('font/pts56f-webfont.woff2') format('woff2'), url('font/pts56f-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'pt_sansbold';
+    src: url('font/pts75f-webfont.woff2') format('woff2'), url('font/pts75f-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'pt_sansbold_italic';
+    src: url('font/pts76f-webfont.woff2') format('woff2'), url('font/pts76f-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body.PT-font {
+    font-family: 'pt_sansregular', sans-serif;
+}
+
+body.PT-font em,
+body.PT-font i {
+    font-family: 'pt_sansitalic', sans-serif;
+    font-style: normal;
+}
+
+body.PT-font strong,
+body.PT-font b {
+    font-family: 'pt_sansbold', sans-serif;
+    font-weight: normal;
+}
+
+body.PT-font strong em,
+body.PT-font em strong {
+    font-family: 'pt_sansbold-italic', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* ==========================================================================
+      Custom styles
+      ========================================================================== */
+
+
+/********** HEADER **********/
+
+
+/*** supNav ***/
+
+.supNav {
+    background: #eeebe5;
+    margin: 0;
+}
+
+
+/*** midNav ***/
+
+.midNav {
+    background: #eb2c47;
+}
+
+.midNav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    padding: 10px 0;
+    float: right;
+    position: relative;
+}
+
+.midNav ul li {
+    display: inline-table;
+}
+
+.midNav ul a {
+    color: #fff;
+    text-decoration: none;
+    font-style: italic;
+    text-align: right;
+    font-size: 0.9em;
+    display: block;
+    line-height: 1.1;
+}
+
+.midNav ul a span {
+    display: block;
+    font-style: normal;
+    font-weight: bold;
+}
+
+
+/*** subNav ***/
+
+.subNav {
+    background: #dbdbdb;
+}
+
+.subNav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    padding: 6px 0;
+    float: right;
+}
+
+.subNav ul li {
+    display: inline-table;
+}
+
+.subNav ul a {
+    background: #999999;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    text-align: center;
+    width: 38px;
+    height: 38px;
+    display: block;
+    padding: 4px 0 0 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.subNav ul a:hover {
+    background: #222;
+}
+
+
+/*** User Panel ***/
+
+.midNav ul li.user {
+    position: absolute;
+    top: 100%;
+    right: 0px;
+    display: none;
+    width: 150px;
+    background: #fff;
+    border: 1px solid #eb2c47;
+    z-index: 999;
+    padding: 12px;
+}
+
+.midNav ul li:hover+li.user {
+    display: block;
+}
+
+.midNav ul li.user a {
+    color: #454545;
+    display: block;
+    background: url(/img/icon-esci.png) no-repeat right center;
+    padding: 20px 48px 20px 10px;
+}
+
+
+/********** LogIn LogOut SignIn **********/
+
+.log-app nav {}
+
+.log-app nav ul {
+    margin: 1em 0;
+    padding: 0;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.log-app nav ul li {
+    display: inline-table;
+    border: 1px solid #dbdbdb;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+    border-radius: 5px 5px 0px 0px;
+    margin: 0 0 -1px 10px;
+}
+
+.log-app nav ul li.active {
+    border-bottom: 1px solid #fff;
+}
+
+.log-app nav ul li a {
+    padding: 10px 20px;
+    color: #454545;
+    display: block;
+    background: #f0f0f0;
+    text-decoration: none;
+}
+
+.log-app nav ul li.active a {
+    background: #fff;
+}
+
+.log-app form {
+    border: 1px solid #dbdbdb;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.log-app form .form-group {
+    margin: 0.5em 0;
+}
+
+.log-app form .form-group:first-child {
+    margin: 0;
+}
+
+.log-app form .form-group label {
+    display: block;
+}
+
+.log-app form .form-group input {
+    font-size: 1.2em;
+    padding: 10px;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.log-app form .form-group input:active,
+.log-app form .form-group input:focus {
+    background: #f0f0f0;
+    outline: none;
+    border: 2px solid #dbdbdb;
+}
+
+.log-app form .btn {
+    background: #eb2c47;
+    color: #fff;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin: 1em 0 0 0;
+}
+
+.log-app form .btn:hover {
+    background: #d42a47;
+}
+
+
+/********** HOME **********/
+
+h3.section-title {
+    border-bottom: 2px solid #dbdbdb;
+    font-size: 1em;
+    margin: 1em 0;
+}
+
+ul.box {
+    margin: 1em 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul.box li {
+    background: #f0f0f0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+}
+
+ul.box li a {
+    color: #222;
+    text-decoration: none;
+}
+
+ul.box li a h3 {
+    font-weight: normal;
+    color: #8d8d8d;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    margin: 0.25em 0;
+}
+
+ul.box li a h1 {
+    font-size: 1em;
+    margin: 0.25em 0;
+    line-height: 1.4;
+}
+
+
+/*** documenti di esempio ***/
+
+.latest-doc .box li {
+    margin: 0 2.66666666667% 0 0;
+    width: 23%;
+    min-height: 160px;
+    border-top: 10px solid #eb2c47;
+    padding: 10px;
+}
+
+.latest-doc .box li:last-child {
+    margin: 0;
+}
+
+.latest-doc .box li a img.right {
+    margin-top: -4px;
+}
+
+
+/*** i miei documenti ***/
+
+.my-doc .box li {
+    margin: 0 2% 1em 0;
+    width: 32%;
+    min-height: 250px;
+    position: relative;
+    overflow: hidden;
+}
+
+.my-doc .box li:nth-child(3n) {
+    margin: 0 0 1em 0;
+}
+
+.my-doc .box .right {
+    position: absolute;
+    top: -40px;
+    right: 10px;
+    z-index: 999;
+}
+
+.my-doc .box .full {
+    width: 100%;
+    height: auto;
+    z-index: 99;
+}
+
+.my-doc .box li div {
+    padding: 10px;
+    position: relative;
+}
+
+.my-doc .box li p {
+    display: none;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.my-doc .box li:hover p {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0px;
+    left: 0px;
+    z-index: 9999;
+}
+
+.my-doc .box li p span {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    display: in
+}
+
+.my-doc .box .last {
+    text-align: center;
+}
+
+.my-doc .box .last a {
+    display: block;
+    height: 100%;
+    padding: 50px 10px 10px 10px;
+    border: 2px dashed #ccc;
+    min-height: 250px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.my-doc .box .last a:hover {
+    border: 2px dashed #bbb;
+}
+
+
+/********** PANEL GENERALE **********/
+
+
+/***** Titolo editabile e azioni *****/
+
+.doc-title {
+    border-bottom: 2px solid #dbdbdb;
+    padding: 0 0 4px 0;
+    margin: 1.25em 0 10px 0;
+}
+
+.doc-title span {
+    display: inline-block;
+    padding: 0 0 0 10px;
+    margin: 0px !important;
+    border: none;
+}
+
+.doc-title span p {
+    font-size: 1.2em;
+    line-height: 1;
+}
+
+.doc-title a {
+    top: -5px;
+    position: relative;
+}
+
+.doc-title .ql-editor {
+    padding: 0px !important;
+}
+
+
+/***** Navigazione dei 4 pannelli *****/
+
+.panel nav {}
+
+.panel nav ul {
+    margin: 1em 0;
+    padding: 2px 0 6px 0;
+    list-style: none;
+    border-bottom: 2px solid #dbdbdb;
+}
+
+.panel nav ul li {
+    display: inline-table;
+    background: url(/img/nav-border.png) no-repeat center right;
+    padding: 10px 0;
+}
+
+.panel nav ul li:last-child {
+    background: none;
+}
+
+.panel nav ul li a {
+    color: #222;
+    padding: 12px 38px 12px 45px;
+    text-decoration: none;
+}
+
+.panel nav ul li a.idee {
+    background: url(/img/sprite-idee.png) no-repeat left top;
+}
+
+.panel nav ul li a.mappa {
+    background: url(/img/sprite-mappa.png) no-repeat left top;
+}
+
+.panel nav ul li a.scaletta {
+    background: url(/img/sprite-scaletta.png) no-repeat left top;
+}
+
+.panel nav ul li a.testo {
+    background: url(/img/sprite-testo.png) no-repeat left top;
+}
+
+.panel nav ul li.active a {
+    background-position: left -100px !important;
+}
+
+.panel nav ul li.pass a {
+    background-position: left -200px;
+}
+
+.DeA-font li.active a {
+    font-family: 'testmedea-sansbold', sans-serif;
+}
+
+.PT-font li.active a {
+    font-family: 'pt_sansbold', sans-serif;
+}
+
+
+/***** Aside *****/
+
+aside {
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: none;
+}
+
+aside.large {
+    float: right;
+    width: 380px;
+    position: absolute;
+    background: #fff;
+    right: 0px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 2em 2em 2em;
+    z-index: 99999;
+    border-left: 2px solid #dbdbdb;
+}
+
+.open {
+    position: absolute;
+    right: 0px;
+    top: 215px;
+    z-index: 99999;
+}
+
+.closed {
+    position: absolute;
+    right: 380px;
+    top: 215px;
+    z-index: 99999;
+    display: none;
+}
+
+
+/********** IDEE **********/
+
+.lista {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.lista article {
+    margin: 10px 0;
+}
+
+.lista article .ql-editor {
+    padding: 5px 10px;
+}
+
+.lista article span.title {
+    border-bottom: 2px solid #dbdbdb;
+    background: #f0f0f0;
+    padding: 10px;
+    display: block;
+}
+
+.lista article:hover {
+    cursor: pointer;
+}
+
+.lista article.add-item span {
+    background: #fff;
+    border: 2px dashed #dbdbdb;
+}
+
+.lista article.level2 {
+    padding: 0 0 0 56px;
+    position: relative;
+}
+
+.lista article.level2:before {
+    content: ' ';
+    background: url(/img/list-nav.png) no-repeat left bottom;
+    width: 42px;
+    height: 40px;
+    position: absolute;
+    left: 14px;
+    bottom: 20px;
+    display: block;
+}
+
+.lista article.level2+article.level2:before {
+    height: 80px;
+}
+
+.lista article.level3 {
+    padding: 0 0 0 112px;
+    position: relative;
+}
+
+.lista article.level3:before {
+    content: ' ';
+    background: url(/img/list-nav.png) no-repeat left bottom;
+    width: 42px;
+    height: 40px;
+    position: absolute;
+    left: 70px;
+    bottom: 20px;
+    display: block;
+}
+
+.lista article.level3+article.level3:before {
+    height: 80px;
+}
+
+.lista article.level3+article.level2:before {
+    height: 200px;
+}
+
+.lista article.level3+article.level3+article.level2:before {
+    height: 250px;
+}
+
+.lista article.level3+article.level3+article.level3+article.level2:before {
+    height: 300px;
+}
+
+.lista article.level3+article.level3+article.level3+article.level3+article.level2:before {
+    height: 350px;
+}
+
+.lista article.level3+article.level3+article.level3+article.level3+article.level3+article.level2:before {
+    height: 400px;
+}
+
+.lista article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level2:before {
+    height: 450px;
+}
+
+.lista article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level2:before {
+    height: 500px;
+}
+
+.lista article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level2:before {
+    height: 550px;
+}
+
+.lista article.level1+article.level2+article.level3+article.level2:before {
+    height: 150px;
+}
+
+.lista article.level1+article.level2+article.level3+article.level3+article.level2:before {
+    height: 210px;
+}
+
+.lista article.level1+article.level2+article.level3+article.level3+article.level3+article.level2:before {
+    height: 260px;
+}
+
+.lista article.level1+article.level2+article.level3+article.level3+article.level3+article.level3+article.level2:before {
+    height: 330px;
+}
+
+.lista article.level1+article.level2+article.level3+article.level3+article.level3+article.level3+article.level3+article.level2:before {
+    height: 380px;
+}
+
+.lista article.level1+article.level2+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level2:before {
+    height: 430px;
+}
+
+.lista article.level1+article.level2+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level2:before {
+    height: 480px;
+}
+
+.lista article.level1+article.level2+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level2:before {
+    height: 530px;
+}
+
+.lista article.level1+article.level2+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level2:before {
+    height: 580px;
+}
+
+.lista article.level1+article.level2+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.level2:before {
+    height: 630px;
+}
+
+.lista article.open:before {
+    height: auto !important;
+    top: -10px;
+    bottom: 20px;
+}
+
+.lista article.level3+article.open:before {
+    height: auto !important;
+    top: -30px;
+    bottom: 20px;
+}
+
+.lista article.open:after {
+    position: absolute;
+    height: 100% !important;
+    top: -40px !important;
+    bottom: 0px;
+    left: 14px;
+    content: '';
+    border-left: 2px solid #dbdbdb;
+    z-index: 99;
+}
+
+.lista article.level3+article.open:after {
+    top: -100px !important;
+}
+
+.lista article.level3+article.level3+article.open:after {
+    top: -150px !important;
+}
+
+.lista article.level3+article.level3+article.level3+article.open:after {
+    top: -210px !important;
+}
+
+.lista article.level3+article.level3+article.level3+article.level3+article.open:after {
+    top: -270px !important;
+}
+
+.lista article.level3+article.level3+article.level3+article.level3+article.level3+article.open:after {
+    top: -330px !important;
+}
+
+.lista article.level3+article.level3+article.level3+article.level3+article.level3+article.level3+article.open:after {
+    top: -390px !important;
+}
+
+
+/********** MAPPA **********/
+
+ul.mappa,
+ul.mappa ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul.mappa li span {
+    padding: 10px;
+}
+
+.tooltips {
+    background: #999;
+    padding: 5px;
+    -o-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    display: inline-table;
+    position: relative;
+}
+
+
+/*** Start Ignora pure***/
+
+ul.mappa li {
+    margin: 1em;
+}
+
+.tooltips span {
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    line-height: 24px;
+    float: left;
+    margin: 0 5px 0 0;
+}
+
+.tooltips span:last-child {
+    margin: 0;
+}
+
+
+/*** End Ignora pure***/
+
+span.grigio,
+.tooltips .grigio {
+    background: #f0f0f0;
+}
+
+li.blue span,
+.tooltips .blue {
+    background: #228ae6;
+}
+
+li.celeste span,
+.tooltips .celeste {
+    background: #a3daff;
+}
+
+li.rosa span,
+.tooltips .rosa {
+    background: #ffa8a8;
+}
+
+li.rosso span,
+.tooltips .rosso {
+    background: #fa5252;
+}
+
+li.arancio span,
+.tooltips .arancio {
+    background: #f08c00;
+}
+
+li.giallo span,
+.tooltips .giallo {
+    background: #ffd43b;
+}
+
+li.verde span,
+.tooltips .verde {
+    background: #a9e34b;
+}
+
+li.smeraldo span,
+.tooltips .smeraldo {
+    background: #20c997;
+}
+
+
+/*** Tootltips edit 5 febbraio ***/
+
+.tooltips a {
+    background: url(/img/icon-mini-delete.png) no-repeat left center;
+    padding: 2px 0 2px 24px;
+    color: #fff;
+    text-decoration: none;
+    margin: 0 0 0 8px;
+    line-height: 24px;
+}
+
+.tooltips:before {
+    width: 0px;
+    height: 0px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid #999;
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -8px;
+    z-index: 999;
+}
+
+.ql-bubble .ql-tooltip {
+    border-radius: 5px !important;
+}
+
+
+/********** SCALETTA **********/
+
+.scaletta li ul li:before {
+    top: -10px;
+}
+
+.scaletta li ul li+li:before {
+    height: 80px;
+    top: -50px;
+}
+
+.scaletta li ul li:last-child:before {
+    height: 180px;
+    top: -150px;
+}
+
+.scaletta li ul li ul li:last-child:before {
+    height: 80px;
+    top: -50px;
+}
+
+
+/********** FOOTER **********/
+
+footer {
+    background: #eeebe5;
+    margin: 2em 0 0 0;
+}
+
+footer div {
+    padding: 1em 0;
+}
+
+
+/* ==========================================================================
+      Media Queries
+      ========================================================================== */
+
+@media only screen and (min-width: 480px) {}
+
+@media only screen and (min-width: 768px) {
+    .log-app form {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (min-width: 1140px) {
+    .wrapper {
+        width: 1026px;
+        /* 1140px - 10% for margins */
+        margin: 0 auto;
+    }
+    .log-app form {
+        max-width: 520px;
+        margin: 0 auto;
+    }
+}
+
+
+/* ==========================================================================
+      Helper classes
+      ========================================================================== */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+
+/* ==========================================================================
+      Print styles
+      ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important;
+        /* Black prints faster: h5bp.com/s */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+    /** Don't show links for images, or javascript/internal links **/
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+    thead {
+        display: table-header-group;
+        /* h5bp.com/t */
+    }
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+    img {
+        max-width: 100% !important;
+    }
+    @page {
+        margin: 0.5cm;
+    }
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}

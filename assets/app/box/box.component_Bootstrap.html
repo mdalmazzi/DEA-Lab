@@ -1,0 +1,71 @@
+<app-alert [box]=box [alert_testo]=alertTesto *ngIf="alert_visibility" (alertVisibility)="alert_Visibility()"></app-alert>
+<div *ngIf="!box.titolo;">
+
+    <div style="z-index: 3" (touchend)="aumentaLivelloTouch($event)" (mouseup)="aumentaLivello()" class="panel panel-default angolo-panel rectangle" [style.background]="box.color" [style.border-color]="box.color" [ngDrag]="draggable_On_Off" [ngStyle]="style[number_box]"
+        (started)="onstarted($event)" (stopped_view)="onstopped_view($event)" (moveBox)="onMove($event)" (dblclick)="createNOBox($event)" mwlResizable [validateResize]="validate" [resizeEdges]="{bottom: true, right: true, top: true, left: true}" [enableGhostResize]="true"
+        (resizeStart)="onResizeStart($event)" (resizeEnd)="onResizeEnd($event)">
+
+        <div class="panel-body" (dblclick)="createNOBox($event)">
+
+            <quill-editor [attr.id]="'editor-container-mappa' + index_box" [style.z-index]="'999'" lang="it" class="separatore" [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)"
+                (change)="onContentChanged($event)"></quill-editor>
+
+        </div>
+
+        <!-- <app-tooltip [box]="box" *ngIf="!rect_4_angle || this.boxService.alert_visibilityTooltip "></app-tooltip> -->
+
+        <!--  <app-tooltip [box]="box" [ngStyle]="{display: !rect_4_angle || this.boxService.alert_visibility ? 'block' : 'none'}"></app-tooltip> -->
+
+        <app-tooltip [index_box_tooltip]="index_box" [box]="box" [ngStyle]="{display: !rect_4_angle || this.boxService.alert_visibilityTooltip[index_box]   ? 'block' : 'none'}"></app-tooltip>
+
+        <!--   <ng-template #Blocklivello1 *ngIf="alert_visibility_tooltip">
+
+        </ng-template> -->
+
+
+
+
+        <img style="z-index: 999;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="resize-handle_right_bottom" mwlResizeHandle [resizeEdges]="{bottom: true, right: true}">
+
+        <img style="z-index: 999;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="resize-handle_right_top" mwlResizeHandle [resizeEdges]="{top: true, right: true}">
+
+        <img style="z-index: 999;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="resize-handle_left_top" mwlResizeHandle [resizeEdges]="{top: true, left: true}">
+
+        <img style="z-index: 999;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="resize-handle_left_bottom" mwlResizeHandle [resizeEdges]="{bottom: true, left: true}">
+        <!-- 
+    Per relazioni
+ -->
+        <img style="z-index: 999;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="relation_bottom" mwlResizeHandle [resizeEdges]="{bottom: true, right: true}">
+
+        <img style="z-index: 999;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="relation_top" mwlResizeHandle [resizeEdges]="{top: true, right: true}">
+
+        <img style="z-index: 999;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="relation_left" mwlResizeHandle [resizeEdges]="{top: true, left: true}">
+
+        <img style="z-index: 999;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="relation_right" mwlResizeHandle [resizeEdges]="{bottom: true, left: true}">
+
+    </div>
+</div>
+
+
+<div (touchend)="aumentaLivelloTouch($event)" (mouseup)="aumentaLivello()" *ngIf="box.titolo;">
+
+    <div style="z-index: 3" class="panel panel-info rectangle angolo-panel" [ngDrag]="draggable_On_Off" [ngStyle]="style[number_box]" (started)="onstarted($event)" (moveBox)="onMove($event)" (stopped_view)="onstopped_view($event)" (dblclick)="createNOBox($event)"
+        mwlResizable [validateResize]="validate" [resizeEdges]="{bottom: true, right: true, top: true, left: true}" [enableGhostResize]="true" (resizeStart)="onResizeStart($event)" (resizeEnd)="onResizeEnd($event)">
+
+        <div class="panel-body" [style.background]="box.color" [style.border-color]="box.color" (dblclick)="createNOBox($event)">
+
+            <quill-editor [attr.id]="'editor-container-mappa' + index_box" [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
+
+        </div>
+
+        <img style="z-index: -1;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="resize-handle_right_bottom" mwlResizeHandle [resizeEdges]="{bottom: true, right: true}">
+
+        <img style="z-index: -1;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="resize-handle_right_top" mwlResizeHandle [resizeEdges]="{top: true, right: true}">
+
+        <img style="z-index: -1;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="resize-handle_left_top" mwlResizeHandle [resizeEdges]="{top: true, left: true}">
+
+        <img style="z-index: -1;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="resize-handle_left_bottom" mwlResizeHandle [resizeEdges]="{bottom: true, left: true}">
+
+    </div>
+
+</div>

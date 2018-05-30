@@ -1,0 +1,15 @@
+<!-- <div class="container"> -->
+<app-listmappe></app-listmappe>
+
+
+<div class="row">
+    <!--     <app-input-mappa></app-input-mappa>
+ -->
+</div>
+
+<!-- <app-alert [box]=box [alert_testo]=alertTesto *ngIf="alert_visibility" (alertVisibility)="alert_Visibility()"></app-alert>
+ -->
+<app-alert4 [alert_testo]=boxService.alert_testo *ngIf="boxService.alert_visibility" (alertVisibility)="alert_Visibility()"></app-alert4>
+
+
+<!-- </div> -->

@@ -1,0 +1,13 @@
+{
+    "window.zoomLevel": 1,
+    "typescript.check.tscVersion": false,
+    "git.ignoreLegacyWarning": true,
+    "editor.autoClosingBrackets": false,
+    "editor.formatOnPaste": false,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.renderIndentGuides": false,
+    "files.autoSave": "off",
+    "editor.wordWrap": "bounded",
+    "editor.formatOnSave": false,
+    "html.format.enable": false
+}

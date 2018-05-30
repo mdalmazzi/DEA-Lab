@@ -1,0 +1,21 @@
+<a class="right" style="z-index: 999" [ngClass]="{'arrow-up' : visible_status,'arrow-down' : !visible_status}" (click)="change_Visible_Status()"></a>
+<span class="title">
+          
+ <!--    <span style= "z-index: 999" class="right glyphicon close" (click)="change_Visible_Status()" [ngClass]="{'glyphicon-triangle-top' : visible_status,'glyphicon-triangle-bottom' : !visible_status}"> </span> -->
+
+
+<quill-editor id="editor-container" style="width: 70%" class="left" [(ngModel)]="content" [options]="editorOptionsTitolo"></quill-editor>
+
+
+
+
+<div class="panel-body" *ngIf="visible_status">
+
+    <quill-editor (mouseleave)="onSubmit_3()" [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
+    <div>
+
+        <!-- <span class="glyphicon glyphicon-remove-sign close" aria-hidden="true" (click)="onDelete()"></span> -->
+    </div>
+</div>
+
+</span>

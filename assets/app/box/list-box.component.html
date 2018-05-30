@@ -1,0 +1,26 @@
+<!-- <section class="panel wrapper"> -->
+<div id="svgContainer" (dblclick)="createBox($event)" #svgContainer>
+    <svg [attr.height]="svgHeight" [attr.width]="svgWidth"> 
+  
+
+    <!-- <svg height="1000" width="1200">  -->
+    <line [id]="'linea' + i" #line *ngFor="let box of boxes; let i=index" [attr.x1]="startX[i]" [attr.y1]="startY[i]" [attr.x2]="endX[i]" [attr.y2]="endY[i]" [style.stroke]="box.color" [style.stroke-width]="strokeWidth"    (mousedown)="onmousedownR($event, i)" />
+    </svg>
+
+
+    <!-- [number_box]="i"  versione iniziale prima di delete box-->
+
+    <!--    (window:resize)="onResize($event)" -->
+</div>
+<div id="Container" class="container" #Container>
+    <!-- <app-box *ngFor="let box of boxes; let i=index " (updateRelation)="onupdateRelation()" (aggiornaRelation)="onupdateRelation_bis(i)" [box]="box" [number_box]="boxes[i].boxId" [index_box]="i"></app-box> -->
+
+    <!--  <div class="loading-bar" *ngIf="!boxes">
+        <div class="loading-bar-element" *ngIf="progress != 'finished'"></div>
+    </div> -->
+
+    <app-box *ngFor="let box of boxes; let i=index " (updateRelation)="onupdateRelation()" (aggiornaRelation)="onupdateRelation_bis($event)" [box]="box" [number_box]="boxes[i].boxId" [index_box]="i"></app-box>
+
+
+</div>
+<!-- </section> -->

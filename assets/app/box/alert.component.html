@@ -1,0 +1,24 @@
+<section class="alert">
+    <div class="container">
+        <h3>
+            <a (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.cursor]="cursor" (click)="chiudiAlert()" class="right"><img src="/img/list-delete.png" /></a>Attenzione</h3>
+        <div>
+            <!--  <p class="al_info">Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Donec sed odio dui.</p>
+            <p class="al_success">Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Donec sed odio dui.</p> -->
+            <p class="al_warning">{{alert_testo}}</p>
+            <!-- <p class="al_error">Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Donec sed odio dui.</p> -->
+            <div class="clearfix">
+
+
+                <a (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.cursor]="cursor" *ngIf="alert_testo != 'Troppi livelli. Oltre al titolo è possibile inserire due livelli.'" type=”button” class="button right disable" (click)="noAlert()">Annulla</a>
+
+                <a (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.cursor]="cursor" *ngIf="alert_testo != 'Troppi livelli. Oltre al titolo è possibile inserire due livelli.'" type=”button” class="button right active" (click)="siAlert()">Ok</a>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</section>

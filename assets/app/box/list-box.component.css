@@ -1,0 +1,14 @@
+.loading-bar {
+    width: 200px;
+    height: 20px;
+    border: 1px solid black;
+    margin: auto;
+    box-sizing: box-content;
+}
+
+.loading-bar-element {
+    width: 200px;
+    height: 20px;
+    background-color: deepskyblue;
+    animation: loading 250ms ease-out infinite;
+}
