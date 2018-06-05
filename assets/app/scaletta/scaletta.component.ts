@@ -618,11 +618,14 @@ export class ScalettaComponent implements OnInit{
 
         if (!this.box.intestazione) 
         {
-            this.boxService.updateBox(this.box)
-            .subscribe(
-               // result => console.log(result)
-
-            )
+            if (this.box.numero_mappa != 145) {
+                this.boxService.updateBox(this.box)
+                .subscribe(
+                   // result => console.log(result)
+    
+                )
+            }
+            
         }
 
         
@@ -728,9 +731,13 @@ export class ScalettaComponent implements OnInit{
               }
             
             onContentChanged({ quill, html, text }) {
-                console.log(html)
-                this.box.testo = this.editorContent ;
-                this.onupdateMappa(this.box);
+                // console.log(html)
+                this.box.testo = this.editorContent;
+
+                if (this.box.numero_mappa != 145) {
+                    this.onupdateMappa(this.box);
+                }
+                
                 //console.log('quill content is changed!', quill, html, text);
               }
 
@@ -755,8 +762,11 @@ export class ScalettaComponent implements OnInit{
                 //this.box.content = this.editorContentTitolo ;
                 if (event.text.length != 1)
                       {
-                            this.box.content = event.html ;
-                            this.onupdateMappa(this.box);
+                            this.box.content = event.html;
+                            if (this.box.numero_mappa != 145) {
+                               this.onupdateMappa(this.box);
+                            }
+                            
                       }
                 //console.log('quill content is changed!', quill, html, text);
               }

@@ -346,8 +346,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
                 this.boxService.secondaryRadiusX = x;
   
                 y = y + 380; 
-                //y = y + height;
-
+             
                 this.boxService.secondaryRadiusY = y;
                         
                    
@@ -376,15 +375,13 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
         this.init_resize = true;
         if (this.box.titolo && (this.box.numero_mappa == this.id_mappa)) {
                  
-            // this.box.rectangle.left = window.innerWidth/2 - 100;
+          
 
             this.box.rectangle.left = 500;
-        
-            // let baricentro = this.boxService.getBaricentro();
-            // console.log('Baricentro: ', this.style);
-
-            // this.box.rectangle.left = baricentro[0];
+            this.box.rectangle.top = 650;
             
+        
+          
             this.boxService.editTitolo(this.box)
         }
         
@@ -426,11 +423,14 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
             { this.box.color = '#B4B4B4'}  
         
         // proprio necessario aggiornare? tolgo e vediamo
-            this.boxService.updateBox(this.box)
-            .subscribe(
-                //result => console.log(result)
 
+        if (this.box.numero_mappa != 141) {
+                this.boxService.updateBox(this.box)
+                    .subscribe(
+                    //result => console.log(result)
             )
+        }
+            
         // proprio necessario aggiornare? tolgo e vediamo
         
     }
@@ -473,7 +473,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
   onResizeEnd(event: ResizeEvent): void {
         
     
-    console.log('resize')
+
         
       if (event.edges.left) {
          if (this.init_resize) {
@@ -673,8 +673,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
     
     aumentaLivello() {   
         
-           console.log('aumentaLivello');
-           
+         
 
             if (this.boxService.boxes[this.boxService.changeLevel].livello == 0 && (this.boxService.test_Box_level0() == 2))
             {
@@ -1448,7 +1447,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
     onEditorCreated(quill) 
         {
             this.editor = quill
-            console.log('this.editor ', this.editor);
+           // console.log('this.editor ', this.editor);
          }
 
       
@@ -1484,7 +1483,6 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
                 change_height = new_height;
                 change_width = new_width;
                 this.init_width = false;
-    
             
             } 
             else 
@@ -1575,18 +1573,17 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
         
               
             } else if (this.box.titolo) {
-                let baricentro = this.boxService.getBaricentro();
-                console.log('Baricentro: ', baricentro);
+
+
+               
                 
                 this.style[this.number_box] = {
                     position: 'absolute',
-                    // left: `${this.box.rectangle.left}px`,
-                    // top: `${this.box.rectangle.top}px`,
+                    left: `${this.box.rectangle.left}px`,
+                    top: `${this.box.rectangle.top}px`,
 
 
-                    left: `${baricentro[0]}px`,
-                    top: `${baricentro[1]}px`,
-
+                   
 
                     //width: `${new_width + 20}px`,
                    // width: `${this.box.rectangle.width}px`,
@@ -1606,7 +1603,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
      }
     
       //onContentChanged({ quill, html, text }) {
-        onContentChanged(event) {
+    onContentChanged(event) {
        
         if (event.text.length != 1)
         {
@@ -1617,13 +1614,16 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
         
           this.init_width = true;
      
-          this.onupdateMappa(this.box);
-         // this.updateRelation.emit(); // è inutile
-        }
+        if (this.box.numero_mappa != 141) {
+            this.onupdateMappa(this.box);
+
+            // this.updateRelation.emit(); // è inutile
+           }
+        }         
       }
 
 
-      onupdateMappa(box) {
+    onupdateMappa(box) {
         
          this.boxService.updateBox(box)
          .subscribe(
@@ -1633,7 +1633,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
 
 
      onupdateMap() {
-
+// togliere
     
     }    
 }

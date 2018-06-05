@@ -117,23 +117,19 @@ export class PostLoginComponent implements  OnInit {
         
          if (this.box) {
              //edit
-             //     this.box.content = form.value.content;
+      
              this.boxService.updateBox(this.box)
                  .subscribe(
-                     result => console.log(result)
- 
-                 );
-             //        this.box = null;
- 
- 
-         } else {
+                     result => console.log(result));
+
+             } else {
           
             let num = this.boxService.get_Boxlength()+1;
-            console.log(num);
+            
  
              const box = new Box('Box  Mappa', 'Testo Box', 'Massimo',0, {top: 0, bottom: 0, left: 0, right: 0, height: 80, width: 200}, false, 1);
              box.color = '#B4B4B4';
-             //box.order = num.toString();
+  
              box.order = num;
                 this.boxService.addBox(box)
                  .subscribe(
@@ -142,14 +138,14 @@ export class PostLoginComponent implements  OnInit {
                  );
          }
  
-         //       form.resetForm();
+
      }
 
     onupdateMappa(box) {
         
          this.boxService.updateBox(box)
-         .subscribe(
-             result => console.log(result)
+             .subscribe(
+                 result => console.log(result)
          );      
      }
   

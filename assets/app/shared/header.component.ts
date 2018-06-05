@@ -68,18 +68,13 @@ export class HeaderComponent implements OnInit{
     
         constructor(public route: ActivatedRoute, public router: Router, private boxService: BoxService, private ideaService: IdeaService, private postLoginService: PostLoginService, private scalettaLoginService: ScalettaService, private testoLoginService: TestoService, private postService: PostLoginService, private renderer: Renderer2, private cd: ChangeDetectorRef, private userService: UserService) {
 
-            // mah serve?
             router.events.subscribe((url:any) => 
-            {}); 
-
-            route.params.subscribe (
-                params => {
-
-                    
+            {});  
+            
+            this.route.params.subscribe (
+                params => {                
                      this.id_mappa = +params['id'];
-                 //    console.log('this.id_mappa', this.id_mappa,  params)
-                     
-                }
+                     console.log('this.id_mappa', this.id_mappa,  params)       }
             )         
     }
 
@@ -256,70 +251,97 @@ export class HeaderComponent implements OnInit{
     }
 
     onNavigate_Idee() {
-         this.active_idee = true;
-         //console.log('navigate idee')
-     
-        this.router.navigate(['idee/'+ this.box.numero_mappa]);
-        //this.router.navigate(['idee/'+ this.id_mappa]);
         
+        if ((this.box.numero_mappa == 164)){
+            
+            alert('Per modificare devi copiare l\'esempio nella tua area di lavoro in navigazione');
+
+            //provengo da Idee
+            if (this.box.stato === 1)
+                {
+                    this.ideaService.updateBox(this.ideaService.boxes[0], this.box.numero_mappa);     
+                } 
+            // procedura per copia esempio 
+        
+        } else {
+
+            this.active_idee = true;
+            this.router.navigate(['idee/'+ this.box.numero_mappa]);
+        }
+          
     }
 
     onNavigate_Auth() {
-        
-         this.router.navigate(['auth/']);
          
+        this.router.navigate(['auth/']);
+       
      }
 
     onNavigate_Testo() {
 
-        /* this.active_idee = false;
-        this.active_mappe =  false;
-        this.active_scaletta = false;
-        this.pass_scaletta = true; */
-        this.active_testo = true;
-
-        //console.log('navigate testo')
-        
-         this.router.navigate(['testo/'+ this.box.numero_mappa]);
-         //this.router.navigate(['testo/'+ this.id_mappa]);
-         
+        if ((this.box.numero_mappa == 164)){
+            
+            alert('Per modificare devi copiare l\'esempio nella tua area di lavoro in navigazione');
+            if (this.box.stato === 1)
+                {
+                    this.ideaService.updateBox(this.ideaService.boxes[0], this.box.numero_mappa);     
+                } 
+            // procedura per copia esempio 
+      
+        } else {
+            this.active_testo = true;
+            this.router.navigate(['testo/'+ this.box.numero_mappa]);
+        }
+ 
      }
 
     onNavigate_Boxes() {
         
-       /*  this.active_idee = false; */
-       /*  this.pass_idee = true; */
-       //console.log('navigate mappe')
-         this.active_mappe =  true;
-       /*   this.active_scaletta = false;
-         this.active_testo = false; */
-         
-         this.router.navigate(['boxes/'+ this.box.numero_mappa]); 
-         //this.router.navigate(['boxes/'+ this.id_mappa]);             
-     }
+        if ((this.box.numero_mappa == 164)){
+            
+            alert('Per modificare devi copiare l\'esempio nella tua area di lavoro in navigazione');
+
+            //provengo da Idee
+            if (this.box.stato === 1)
+                {
+                    this.ideaService.updateBox(this.ideaService.boxes[0], this.box.numero_mappa);     
+                } 
+            // procedura per copia esempio 
+        
+        } else {
+        
+            this.active_mappe =  true;
+            this.router.navigate(['boxes/'+ this.box.numero_mappa]); 
+        } 
+      
+}
 
      onNavigate_Scaletta() {
+
+        if ((this.box.numero_mappa == 164)){
+            
+            alert('Per modificare devi copiare l\'esempio nella tua area di lavoro in navigazione');
+            if (this.box.stato === 1)
+                {
+                    this.ideaService.updateBox(this.ideaService.boxes[0], this.box.numero_mappa);     
+                } 
+            // procedura per copia esempio 
+        // return
+        } else {
         
-         /* this.active_idee = false;
-         this.active_mappe =  false;
-         this.pass_mappe = true; */
-         //console.log('navigate scaletta')
-         this.active_scaletta = true;
-         this.id_mappa
-      /*    this.active_testo = false; */
-         this.router.navigate(['scaletta/'+ this.box.numero_mappa]);
-         //this.router.navigate(['scaletta/'+ this.id_mappa]);
+            this.active_scaletta = true;
+            this.router.navigate(['scaletta/'+ this.box.numero_mappa]);
+        }
+        
      }
      
      onNavigate_Home() {
 
-        /*  this.active_idee = false;
-         this.active_mappe =  false;
-         this.active_scaletta = false;
-         this.active_testo = false; */
-         $("#sidebar .closed").fadeOut();
-         $("#sidebar .open").fadeIn();
-         this.router.navigate(['home/' + this.box.userId]);
+        
+        $("#sidebar .closed").fadeOut();
+        $("#sidebar .open").fadeIn();
+        this.router.navigate(['home/' + this.box.userId]);
+       
      }
 
     ngOnInit() {

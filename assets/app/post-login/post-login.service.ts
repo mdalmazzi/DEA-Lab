@@ -19,9 +19,10 @@ export class PostLoginService {
     
        //private path_to_server: string = 'http://dealab-env.cpr43rbhcm.us-west-2.elasticbeanstalk.com'; 
 
-       //private path_to_server: string = 'http://localhost:3000';
+   
+    // private path_to_server: string = 'http://localhost:3000'; 
+    private path_to_server: string = 'http://192.168.1.41:3000'; 
 
-       private path_to_server: string = 'http://localhost:3000'; 
 
     constructor(private http: Http) {}
 
@@ -83,10 +84,10 @@ export class PostLoginService {
 
     get_levelUp(num:number) {
 
-        //console.log(this.boxes, 'num: ', num, 'this.boxes[num].livello :', this.boxes[num].livello);
+        
 
         for (var i=num-1; i!=0; i--) {
-          //console.log(this.boxes[num].livello > this.boxes[i].livello);
+          
             if (this.boxes[num].livello > this.boxes[i].livello) {
 
                 return i;
@@ -96,14 +97,11 @@ export class PostLoginService {
     }
 
     getBoxes() {
-        //console.log('service')
-        
-        //return this.http.get(this.path_to_server + '/mappa')
-        //return this.http.get('http://localhost:3000/mappa')
+       
 
         let userId = localStorage.getItem('userId')
         
-        //console.log('userId', userId);
+       
         return this.http.get(this.path_to_server + '/mappa_home/' + userId)
             
             .map((response: Response) => {
@@ -111,22 +109,18 @@ export class PostLoginService {
                 
                 let transformedBoxes: Box[] = [];
                 let mappas = boxes.mappa;
-                //console.log('mappas', mappas)
-                /* for (let box of boxes) {
-                    transformedBoxes.push(new Box(box.mappa[0].content, box.mappa[0].testo, box.firstName, box.mappa[1].livello, box.mappa[0].rectangle, box.mappa[0].titolo, box.mappa[0].numero_mappa, box.mappa[0]._id, box._id, box.mappa[0].color, box.mappa[0].order, box.mappa[0].inMap))
-                } */
+               
                 
                 for (let mappa of mappas) {
                     transformedBoxes.push(new Box(mappa.content, mappa.testo, boxes.firstName, mappa.livello, mappa.rectangle, mappa.titolo, mappa.numero_mappa, mappa._id, boxes._id, mappa.color, mappa.order, mappa.inMap, mappa.stato))
                 }
                 this.boxes = transformedBoxes;
 
-               // console.log(this.boxes, mappas[0].stato, 'mappas[0].stato');
-            
+              
                for (var _i: any = 0; _i < mappas.length; _i++) {
                 this.boxes[_i].stato = mappas[_i].stato;}
 
-                //console.log('post login', this.boxes)
+               
                 //return transformedBoxes;
                 return this.boxes
             })
@@ -134,26 +128,7 @@ export class PostLoginService {
 
     }
 
-    // vecchia gestione//
-    /*  getLastMapNumberLettura() {
-       
-        if (this.boxes.length != 0) {
-            this.last_numero_mappa = 1;
-            for (let box of this.boxes) {
-                
-                if ((box.titolo) && (box.numero_mappa > this.last_numero_mappa)) {
-                    
-                    this.last_numero_mappa = box.numero_mappa;}
-            }
-            return this.last_numero_mappa;
-           
-        } else {
-            this.last_numero_mappa = 0;
-            return this.last_numero_mappa;
-        }
-        
-    }  */
-    // vecchia gestione//
+   
 
     getLastMapNumber() {
 
@@ -162,16 +137,10 @@ export class PostLoginService {
             
             .map((response: Response) => {
                 const boxes = response.json().obj;
-                //console.log('getlastMapNUmber response: ', response,'boxes: ', boxes)
+                
                 let transformedBoxes: Box[] = [];
-               // let mappas = boxes.mappa;
-                // mahh prima funzionava
-               /*  for (let box of boxes) {
-                    transformedBoxes.push(new Box(box.content, box.testo, box.user.firstName, box.livello, box.rectangle, box.titolo, box.numero_mappa, box._id, box.user._id, box.color, box.order, box.inMap, box.stato))
-                } */
-
-                /* console.log('transformedBoxes', transformedBoxes)
-                this.boxes = transformedBoxes; */
+               
+               // this.boxes = transformedBoxes; */
 
                 this.boxes = boxes;
                 

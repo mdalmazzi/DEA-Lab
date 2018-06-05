@@ -2,6 +2,7 @@ import {Box} from "./box.model";
 import {BoxPosition} from "./circle.model";
 import {Http, Response, Headers} from "@angular/http";
 import {EventEmitter, Injectable} from "@angular/core";
+import { Router} from "@angular/router";
 
 import 'rxjs/Rx';
 import {Observable} from "rxjs/Observable";
@@ -35,38 +36,36 @@ export class BoxService {
 
     alert_visibilityTooltip: boolean[] = [];
 
-    /* public colorArrayM: string[] = ['ff3333','093196','f1b6c2','ff7e9d','00aa00','ff9900','f03d13', 'b700ff', 'F5DA81', '13c6f0', 'F781BE' ] */
-
     
      //private path_to_server: string = 'http://dealab-env.cpr43rbhcm.us-west-2.elasticbeanstalk.com'; 
 
-    //private path_to_server: string = 'http://localhost:3000';
 
     //private path_to_server: string = 'https://labscrittura-labscrittura-staging.eu-central-1.elasticbeanstalk.com'
 
-    private path_to_server: string = 'http://localhost:3000'; 
+    // private path_to_server: string = 'http://localhost:3000'; 
+    private path_to_server: string = 'http://192.168.1.41:3000'; 
 
-    constructor(private http: Http) {
+    constructor(private router: Router, private http: Http) {
         this.style = [];         
     }
 
-    getBaricentro() {
+    // getBaricentro() {
         
-        let bar_x : number = 0;
-        let bar_y : number = 0;
+    //     let bar_x : number = 0;
+    //     let bar_y : number = 0;
 
-        for (var i=0; i<(this.boxes.length); i++) { 
-            if (this.boxes[i].livello == 0 && !this.boxes[i].titolo)
-            {
-                bar_x = bar_x + this.boxes[i].rectangle.left;
-                bar_y = bar_y + this.boxes[i].rectangle.top;
-                console.log(this.boxes[i].rectangle.left, this.boxes[i].rectangle.top);
-            }   
-        }
-        console.log(bar_x/(this.boxes.length-1), bar_y/(this.boxes.length-1));
-        return (bar_x/(this.boxes.length-1), bar_y/(this.boxes.length-1));
+    //     for (var i=0; i<(this.boxes.length); i++) { 
+    //         if (this.boxes[i].livello == 0 && !this.boxes[i].titolo)
+    //         {
+    //             bar_x = bar_x + this.boxes[i].rectangle.left;
+    //             bar_y = bar_y + this.boxes[i].rectangle.top;
+    //             console.log(this.boxes[i].rectangle.left, this.boxes[i].rectangle.top);
+    //         }   
+    //     }
+       
+    //     return (bar_x/(this.boxes.length-1), bar_y/(this.boxes.length-1));
 
-    }
+    // }
 
     cleanStyle() {
         this.style =  [];
@@ -358,31 +357,130 @@ export class BoxService {
           this.titoloisedit.emit(box);
    }
 
+   getLastMapNumberCrea() {
+
+       
+    return this.http.get(this.path_to_server + '/mappa_home' )
+        
+        .map((response: Response) => {
+            const boxes = response.json().obj;
+            
+            let transformedBoxes: Box[] = [];
+           
+
+            this.boxes = boxes;
+            
+            if (this.boxes.length != 0) {
+                this.last_numero_mappa = 1;
+                for (let box of this.boxes) {
+                    
+                    if ((box.titolo) && (box.numero_mappa > this.last_numero_mappa)) {
+                        
+                    this.last_numero_mappa = box.numero_mappa;}
+                }
+                
+               
+                } else {
+                    this.last_numero_mappa = 0;  
+                }
+            return this.last_numero_mappa
+           
+        })
+         .catch((error: Response) => Observable.throw(error.json()));
+
+}
+
+   onCreaMappa(boxes, box) {
+
+    console.log('CreaMappa');
+
+    let userId = localStorage.getItem('userId');
+   
+    this.getLastMapNumberCrea()
+        .subscribe(
+      
+        (last_numero_mappa: any) => {
+    
+              boxes.forEach((box) => {
+               
+                  const box_copy = new Box(' ', ' ',  ' ', 0, box.rectangle, true, last_numero_mappa + 1); 
+
+                  box_copy.numero_mappa = last_numero_mappa + 1;
+                  box_copy.userId = userId;
+              
+                  box_copy.color = box.color;
+                  box_copy.order = box.order;
+ 
+                  box_copy.stato = box.stato;
+                  box_copy.content = box.content;
+                  box_copy.testo = box.testo;
+                  box_copy.username = box.username;
+                  box_copy.livello = box.livello;
+                  box_copy.titolo = box.titolo ;
+        
+                  box_copy.inMap = false;
+
+                  this.addBox(box_copy)
+                       .subscribe(
+                        data => console.log(data),
+                        error => console.error(error)
+                        ); 
+              }); 
+
+              this.getBoxes(last_numero_mappa + 1)
+              .subscribe(
+                  (boxes: Box[]) => {
+                      this.boxes = boxes;
+              
+                      
+                      this.router.navigate(['boxes/'+ (last_numero_mappa + 1)]);
+
+                      }
+                  );
+
+                  box.numero_mappa = last_numero_mappa + 1;
+                  box.userId = userId;
+                  return box
+
+        }
+    );               
+ }
+
     updateBox(box: Box) {
        
+        console.log('box', box)
+        // Inserire controllo per copia e check stato lettura oggetti esempio
+        if ((box.numero_mappa == 141) ) {
+            alert('Per modificare devi copiare l\'esempio nella tua area di lavoro');
+            this.onCreaMappa(this.boxes, box); 
+        } else {
 
-        if (box.stato > 2) {
+            if (box.stato > 2) {
            
-        } else if (!box.stato) {
-            box.stato = 2
+            } else if (!box.stato) {
+                box.stato = 2
+            }
+    
+            const body = JSON.stringify(box);
+            
+            const headers = new Headers({'Content-Type': 'application/json'});
+            /* const token = localStorage.getItem('token')
+                ? '?token=' + localStorage.getItem('token')
+                : ''; */
+    
+            const token = localStorage.getItem('userId')
+                ? '?token=' + localStorage.getItem('userId')
+                : '';
+              
+            return this.http.patch(this.path_to_server + '/mappa_box/' + box.boxId + token, body, {headers: headers})
+                .map((response: Response) => response.json())      
+                .catch((error: Response) => Observable.throw(error.json()));
+                
+    
+
         }
 
-        const body = JSON.stringify(box);
         
-        const headers = new Headers({'Content-Type': 'application/json'});
-        /* const token = localStorage.getItem('token')
-            ? '?token=' + localStorage.getItem('token')
-            : ''; */
-
-            const token = localStorage.getItem('userId')
-            ? '?token=' + localStorage.getItem('userId')
-            : '';
-          
-        return this.http.patch(this.path_to_server + '/mappa_box/' + box.boxId + token, body, {headers: headers})
-            .map((response: Response) => response.json())      
-            .catch((error: Response) => Observable.throw(error.json()));
-            
-
     }
 
     deleteBox(box: Box) {

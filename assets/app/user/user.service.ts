@@ -11,9 +11,10 @@ export class UserService {
 
       //private path_to_server: string = 'http://dealab-env.cpr43rbhcm.us-west-2.elasticbeanstalk.com'; 
 
-      //private path_to_server: string = 'http://localhost:3000';
 
-      private path_to_server: string = 'http://localhost:3000'; 
+    // private path_to_server: string = 'http://localhost:3000'; 
+    private path_to_server: string = 'http://192.168.1.41:3000'; 
+
 
     constructor(private http: Http) {}
 

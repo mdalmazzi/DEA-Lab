@@ -3,6 +3,7 @@ import {Http, Response, Headers} from "@angular/http";
 import {EventEmitter, Injectable} from "@angular/core";
 import 'rxjs/Rx';
 import {Observable} from "rxjs/Observable";
+import { Router} from "@angular/router";
 
 @Injectable()
 export class IdeaService {
@@ -10,13 +11,13 @@ export class IdeaService {
     private flag: boolean = false;
     boxesOwn: Box[] = [];
     index_boxesOwn: number;
+    last_numero_mappa: number;
+  
+    //private path_to_server: string = 'http://dealab-env.cpr43rbhcm.us-west-2.elasticbeanstalk.com'; 
 
-    
-       //private path_to_server: string = 'http://dealab-env.cpr43rbhcm.us-west-2.elasticbeanstalk.com'; 
+    // private path_to_server: string = 'http://localhost:3000'; 
+    private path_to_server: string = 'http://192.168.1.41:3000'; 
 
-       //private path_to_server: string = 'http://localhost:3000';
-
-    private path_to_server: string = 'http://localhost:3000'; 
 
     boxisedit = new EventEmitter<Box>();
     titoloisedit = new EventEmitter<Box>();
@@ -29,11 +30,87 @@ export class IdeaService {
             }
         }
     }
-    constructor(private http: Http) {}
+    constructor(private router: Router, private http: Http) {}
 
     get_Boxlength() {
         return this.boxes.length
     }
+
+
+    getLastMapNumber() {
+       
+        return this.http.get(this.path_to_server + '/mappa_home' )
+            
+            .map((response: Response) => {
+                const boxes = response.json().obj;
+                
+                let transformedBoxes: Box[] = [];              
+
+                this.boxes = boxes;
+                
+                if (this.boxes.length != 0) {
+                    this.last_numero_mappa = 1;
+                    for (let box of this.boxes) {
+                        
+                        if ((box.titolo) && (box.numero_mappa > this.last_numero_mappa)) 
+                        { 
+                            this.last_numero_mappa = box.numero_mappa;
+                        }
+                    }     
+
+                    } else {
+                        this.last_numero_mappa = 0;  
+                    }
+                return this.last_numero_mappa
+               
+            })
+             .catch((error: Response) => Observable.throw(error.json()));
+
+    }
+
+
+    onCreaMappa(boxes: Box[], box: Box) {
+
+        let userId = localStorage.getItem('userId');
+       
+        this.getLastMapNumber()
+            .subscribe(
+          
+            (last_numero_mappa: number) => {
+
+                this.last_numero_mappa = last_numero_mappa;
+                
+                  boxes.forEach((box) => {
+                   
+                      const box_copy = new Box(' ', ' ',  ' ', 0, box.rectangle, true, last_numero_mappa + 1); 
+
+                      box_copy.numero_mappa = last_numero_mappa + 1;
+                      box_copy.userId = userId;
+                  
+                      box_copy.color = box.color;
+                      box_copy.order = box.order;
+     
+                      box_copy.stato = box.stato;
+                      box_copy.content = box.content;
+                      box_copy.testo = box.testo;
+                      box_copy.username = box.username;
+                      box_copy.livello = box.livello;
+                      box_copy.titolo = box.titolo ;
+            
+                      box_copy.inMap = false;
+
+                      this.addBox(box_copy)
+                           .subscribe(
+                                data => console.log(data),
+                                error => console.error(error)
+                            ); 
+                            
+                    
+                  }); 
+                
+                    
+            });               
+     }
 
     addBox(box: Box) {
 
@@ -80,7 +157,7 @@ export class IdeaService {
         return this.http.get(this.path_to_server + '/mappa_idee/' + id_mappa)
             .map((response: Response) => {
                 const boxes = response.json().obj;
-                //console.log(boxes, 'This is boxes obj')
+                
                 let transformedBoxes: Box[] = [];
                 for (let box of boxes) {
                     if (!box.intestazione) {
@@ -89,13 +166,10 @@ export class IdeaService {
                         transformedBoxes[lung -1].stato = box.stato
                     }
                 }
+
                 this.boxes = transformedBoxes;
                 this.boxesOwn = transformedBoxes;
 
-                 /* for (var _i: any = 0; _i < boxes.length; _i++) {
-                    this.boxes[_i].stato = boxes[_i].stato;}  */
-
-                //console.log(this.boxes, 'this is this.boxes')
                 return this.boxes;
             })
             .catch((error: Response) => Observable.throw(error.json()));
@@ -108,49 +182,128 @@ export class IdeaService {
         }
 
     editBox(box: Box) {
+
         this.boxisedit.emit(box);
 
     }
 
-    updateBox(box: Box) {
+    copiaExample(box: Box, id_mappa) {
 
-        if (box.stato > 1) {
-           
-        } else if (!box.stato) {
-            box.stato = 1
-        }
+        let userId = localStorage.getItem('userId');
+
+        alert('Per modificare devi copiare l\'esempio nella tua area di lavoro');
+
+        this.getLastMapNumber()
+                .subscribe(
+                    (example) => {
+                       
+                        this.last_numero_mappa = example;
+                        this.getBoxes(box.numero_mappa )
+                            .subscribe(
+                                (boxes: Box[]) => {
+                                    boxes.forEach((box) => {
+                   
+                                        const box_copy = new Box(' ', ' ',  ' ', 0, box.rectangle, true, example + 1); 
+                  
+                                        box_copy.numero_mappa = example + 1;
+                                        box_copy.userId = userId;
+                                    
+                                        box_copy.color = box.color;
+                                        box_copy.order = box.order;
+                       
+                                        box_copy.stato = box.stato;
+                                        box_copy.content = box.content;
+                                        box_copy.testo = box.testo;
+                                        box_copy.username = box.username;
+                                        box_copy.livello = box.livello;
+                                        box_copy.titolo = box.titolo ;
+                              
+                                        box_copy.inMap = false;
+                  
+                                        this.addBox(box_copy)
+                                             .subscribe(
+                                                  data => 
+                                                  {
+                                                   console.log('Copia example: ', data);
+                                                   this.router.navigate(['idee/'+ (example + 1)]);
+                                                   return data
+                                                        
+                                                },
+                                                  error => console.error(error)
+                                              );   
+                                             }); 
+                                })
+                
+                            
+                            }
+            )
         
-        const body = JSON.stringify(box);
-        const headers = new Headers({'Content-Type': 'application/json'});
-        /* const token = localStorage.getItem('token')
-            ? '?token=' + localStorage.getItem('token')
-            : ''; */
+        // procedura per copia esempio 
+    }
+
+    updateBox(box: Box, id_mappa) {
+
+        console.log('box.numero_mappa: ', box.numero_mappa);
+        // let userId = localStorage.getItem('userId');
+
+        // procedura per copia esempio
+        if (id_mappa == 164)  {
+            
+           this.copiaExample(box, id_mappa);
+
+           const body = JSON.stringify(box);
+           const headers = new Headers({'Content-Type': 'application/json'});
+       
 
             const token = localStorage.getItem('userId')
-            ? '?token=' + localStorage.getItem('userId')
-            : '';
-        return this.http.patch(this.path_to_server + '/mappa_idee/' + box.boxId + token, body, {headers: headers})
-            .map((response: Response) => response.json())
-            .catch((error: Response) => Observable.throw(error.json()));
+                ? '?token=' + localStorage.getItem('userId')
+                : '';
+        
+            return this.http.patch(this.path_to_server + '/mappa_idee/' + box.boxId + token, body, {headers: headers})
+                .map((response: Response) => response.json())
+                .catch((error: Response) => Observable.throw(error.json()));
+    
+        } else {
 
+            /// Procedura normale///
+
+            if (box.stato > 1) {
+           
+            } else if (!box.stato) {
+                box.stato = 1
+            }
+            
+            const body = JSON.stringify(box);
+            const headers = new Headers({'Content-Type': 'application/json'});
+            /* const token = localStorage.getItem('token')
+                ? '?token=' + localStorage.getItem('token')
+                : ''; */
+    
+            const token = localStorage.getItem('userId')
+                ? '?token=' + localStorage.getItem('userId')
+                : '';
+
+            return this.http.patch(this.path_to_server + '/mappa_idee/' + box.boxId + token, body, {headers: headers})
+                .map((response: Response) => response.json())
+                .catch((error: Response) => Observable.throw(error.json()));
+        }
     }
 
     deleteBox(box: Box) {
+
         
-        this.boxes.splice(this.boxes.indexOf(box), 1);
-        /* const token = localStorage.getItem('token')
-            ? '?token=' + localStorage.getItem('token')
-            : ''; */
+
+            this.boxes.splice(this.boxes.indexOf(box), 1);
+            /* const token = localStorage.getItem('token')
+                ? '?token=' + localStorage.getItem('token')
+                : ''; */
 
             const token = localStorage.getItem('userId')
             ? '?token=' + localStorage.getItem('userId')
             : '';
-        return this.http.delete(this.path_to_server + '/mappa_idee/' + box.boxId + token)
-            .map((response: Response) => response.json())
-            .catch((error: Response) => Observable.throw(error.json()));
+            return this.http.delete(this.path_to_server + '/mappa_idee/' + box.boxId + token)
+                .map((response: Response) => response.json())
+                .catch((error: Response) => Observable.throw(error.json()));
 
-
-    }
-
-
+        }
 }

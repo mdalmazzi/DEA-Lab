@@ -21,9 +21,7 @@ export class ListIdeeComponent implements OnInit {
     sign_boxes = [0,0,0,0,0];
     num: number;
     private box = <Box>{};
-    private rectangle =<BoundingRectangle>{};
-    
-   
+    private rectangle =<BoundingRectangle>{};  
 
     //@Output() editClicked = new EventEmitter<string>();
 
@@ -32,7 +30,19 @@ export class ListIdeeComponent implements OnInit {
             params => {
                // console.log( params);
                 this.id_mappa = +params['id'];
-            }
+
+                // Toglierlo da onInit
+
+                this.boxService.getBoxes(this.id_mappa)
+                    .subscribe(
+                    (boxes: Box[]) => {
+                    this.boxes = boxes;
+                    
+                    this.number_boxes = this.boxes.length;
+                    result => console.log(result, 'Idea');    
+                    
+                });
+           }
         )
     }
    
@@ -54,33 +64,16 @@ export class ListIdeeComponent implements OnInit {
 
         this.direction_move = '';
         
-
+        // Toglierlo è già su constructor
         this.boxService.getBoxes(this.id_mappa)
             .subscribe(
                 (boxes: Box[]) => {
                     this.boxes = boxes;
-                   // this.getBoxesOwn();
-                   
-                    this.number_boxes = this.boxes.length;
-                    result => console.log(result, 'Idea')
                     
-
-                   /*  console.log(this.boxes, 'List idea' )
-                    this.boxes[0].stato = 1;
-
-                    this.boxService.updateBox(this.boxes[0])
-                    .subscribe(
-               
-                    result => console.log(result, 'Idea')
-                ); */
+                    this.number_boxes = this.boxes.length;
+                    result => console.log(result, 'Idea');              
                 }
             );
-            
-            
-            
-
-           // console.log(this.boxes, 'siamo in idee');    
-            
     }
 
     onNavigate_Boxes() {
@@ -90,40 +83,51 @@ export class ListIdeeComponent implements OnInit {
     }
 
     onSubmit_4() { 
-       
-        this.num = this.boxService.get_Boxlength() + 1;
-   
-        
-        this.box.content = 'Content Box';
-        this.box.testo = 'Testo Box';
-        this.box.username = 'Massimo';
-        this.box.livello = 0;
-        this.box.titolo = false;
-        this.box.numero_mappa = this.id_mappa;
-      
-        this.rectangle.left = 999;
-        this.rectangle.top = 999;
-        this.rectangle.bottom = 0;
-        this.rectangle.right = 0;
-        this.rectangle.height = 46;
-        this.rectangle.width = 115; 
-        this.box.rectangle = this.rectangle;
-        
-        this.box.color = '#B4B4B4';
-        //this.box.order = this.num.toString();
-        this.box.order = this.num;
-        this.box.inMap = false;
-        this.box.stato = 1;
-        this.box.intestazione = false
 
-         this.boxService.addBox(this.box)
+        // console.log('this.box.numero_mappa: ',this.box.numero_mappa);
+
+        if ((this.id_mappa == 164)) {
+            alert('Per modificare devi copiare l\'esempio nella tua area di lavoro');
+            // this.boxService.onCreaMappa(this.boxService.boxes, this.box); 
+            this.boxService.updateBox(this.boxes[0], this.id_mappa);    
+
+            // procedura per copia esempio 
+
+        } else { 
+
+            this.num = this.boxService.get_Boxlength() + 1;
+   
+            this.box.content = 'Content Box';
+            this.box.testo = 'Testo Box';
+            this.box.username = 'Massimo';
+            this.box.livello = 0;
+            this.box.titolo = false;
+            this.box.numero_mappa = this.id_mappa;
+      
+            this.rectangle.left = 999;
+            this.rectangle.top = 999;
+            this.rectangle.bottom = 0;
+            this.rectangle.right = 0;
+            this.rectangle.height = 46;
+            this.rectangle.width = 115; 
+            this.box.rectangle = this.rectangle;
+        
+            this.box.color = '#B4B4B4';
+            //this.box.order = this.num.toString();
+            this.box.order = this.num;
+            this.box.inMap = false;
+            this.box.stato = 1;
+            this.box.intestazione = false
+
+             this.boxService.addBox(this.box)
                 .subscribe(
                     data => console.log(data),
                     error => console.error(error)
                 );
                 this.number_boxes = this.boxes.length;
-        //   }
-
-        //       form.resetForm();
+       
+            }
     }
+       
+        
 }

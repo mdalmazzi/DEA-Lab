@@ -52,7 +52,7 @@ export class InputMappaComponent implements OnInit {
         
                /* const box = new Box('Inserisci il titolo ...', 'inserisci il testo...',  'Massimo', 0, {top: 500, bottom: 0, left: window.innerWidth/2 - 100, right: 0, height: 80, width: 200}, true, this.boxService.last_numero_mappa + 1);  */
               
-             box.color = '#f0f0f0';
+              box.color = '#f0f0f0';
               box.order = 0;
               //box.boxId = localStorage.getItem('userId')
               //box.numero_mappa = last_mappa + 1;
@@ -91,14 +91,7 @@ export class InputMappaComponent implements OnInit {
                   );
                
            }
-       );
-
-       
-    
-       
-            
-           
-            
+       );               
     }
 
     onSubmit(form: NgForm) {

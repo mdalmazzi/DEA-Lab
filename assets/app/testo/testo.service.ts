@@ -29,9 +29,10 @@ export class TestoService {
     
     //private path_to_server: string = 'http://dealab-env.cpr43rbhcm.us-west-2.elasticbeanstalk.com'; 
 
-    //private path_to_server: string = 'http://localhost:3000';
+   
+    // private path_to_server: string = 'http://localhost:3000'; 
+    private path_to_server: string = 'http://192.168.1.41:3000'; 
 
-    private path_to_server: string = 'http://localhost:3000'; 
 
     constructor(private http: Http) {}
 
@@ -275,6 +276,37 @@ export class TestoService {
         return this.last_numero_mappa;
     }
 
+    getLastMapNumberCopia() {
+
+       
+        return this.http.get(this.path_to_server + '/mappa_home' )
+            
+            .map((response: Response) => {
+                const boxes = response.json().obj;
+                
+                let transformedBoxes: Box[] = [];
+
+                //this.boxes = boxes;
+                
+                if (boxes.length != 0) {
+                    this.last_numero_mappa = 1;
+                    for (let box of boxes) {
+                        
+                        if ((box.titolo) && (box.numero_mappa > this.last_numero_mappa)) {
+                            
+                        this.last_numero_mappa = box.numero_mappa;}
+                    }
+                    
+                   
+                    } else {
+                        this.last_numero_mappa = 0;  
+                    }
+                return this.last_numero_mappa
+               
+            })
+             .catch((error: Response) => Observable.throw(error.json()));
+
+    }
 
     editBox(box: Box) {
         this.boxisedit.emit(box);

@@ -1,7 +1,7 @@
 import {BoundingRectangle } from './rectangle.model';
 
 export class Box {
-    content?: string;
+    content: string;
     testo: string;
     username: string;
     livello?: number;
@@ -17,7 +17,6 @@ export class Box {
     stato?: number;
     intestazione?: boolean;
     testo_mappa?: string;
-    
     
     
 

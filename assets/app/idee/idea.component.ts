@@ -1,6 +1,8 @@
 import {Component, ElementRef, ViewEncapsulation, EventEmitter, Input, AfterViewInit, OnInit, Output, HostListener} from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Router} from "@angular/router";
+import {Observable} from "rxjs/Observable";
 
 import {TruncatePipe} from './truncate';
 
@@ -57,13 +59,14 @@ export class IdeaComponent implements  OnInit{
 
     id_mappa: number;
 
-    constructor(private _fb:FormBuilder, private route: ActivatedRoute, private boxService: IdeaService) {
+    constructor(private router: Router, private _fb:FormBuilder, private route: ActivatedRoute, private boxService: IdeaService) {
         //this.livello = 0;
         
         this.route.params.subscribe (
             params => {
-                //console.log(params);
+                console.log('param: ', +params['id']);
                 this.id_mappa = +params['id'];
+                
             }
         )     
     }
@@ -79,21 +82,23 @@ export class IdeaComponent implements  OnInit{
 
     ngOnInit() {
 
+        console.log('Init IDEE');
+
+        // if (this.box.numero_mappa != this.id_mappa) {
+        //     this.box.numero_mappa = this.id_mappa;
+        //     console.log('Fatto copia');
+        // } else {
+        //     console.log('Fatto copia ma non funziona', this.box.numero_mappa, this.id_mappa);
+        // }
+
         if (this.number_idea == 1) 
-        {
-            ///this.editorOptions.bounds = '#primoQuill';
-            this.editorOptions.bounds = '#document.body';
-            
-           
+        { 
+            this.editorOptions.bounds = '#document.body';           
         }
         else
         {
             this.editorOptions.bounds = "#editor-container" + this.number_idea;
-          //  console.log('this.editorOptions.bounds: ', this.editorOptions.bounds);
         }
-
-        
-        
         
         //console.log(this.editorOptions.bounds)
         if (this.box.titolo && (this.box.numero_mappa == this.id_mappa)) {
@@ -139,12 +144,17 @@ export class IdeaComponent implements  OnInit{
             this.box.stato = 1
         }
 
-        this.boxService.updateBox(this.box)
-            .subscribe(
-                result => console.log(result)
-            );
+        if (this.id_mappa != 164) {
+            
+            this.boxService.updateBox(this.box, this.box.numero_mappa)
+                .subscribe(
+                    
+                    result => console.log('Update: ',result)
+                );
+        }
          
- }
+     }
+
 
     onEdit() {
        
@@ -156,37 +166,53 @@ export class IdeaComponent implements  OnInit{
     }
 
     onDelete() {
+
+        // if ((this.box.numero_mappa == 164) ) {
+        if (this.id_mappa == 164) {
+
+            alert('Per modificare devi copiare l\'esempio nella tua area di lavoro');
+           
+            // this.alert_visibility = true;
+            // return
+            this.boxService.updateBox(this.box, this.id_mappa);
+                  
+            // procedura per copia esempio 
+
+        } else {
         
         
-        if (this.boxService.boxes.indexOf(this.box)== 1 && this.box.livello == 0) {
-            //alert('Non puoi cancellare un primo livello');
-            this.alert_visibility = true;
-            return
+            if (this.boxService.boxes.indexOf(this.box)== 1 && this.box.livello == 0) {
+               
+                this.alert_visibility = true;
+                return
+                }
+                this.alertTesto = 'Sei sicuro di voler cancellare questa idea?'
+                this.alert_visibility = true;
+           
+
         }
-        this.alertTesto = 'Sei sicuro di voler cancellare questa idea?'
-        this.alert_visibility = true;
-        /* this.boxService.deleteBox(this.box)
-            
-            .subscribe(
-                result => console.log(result)
-            ); */
     }
 
     belongsToUser() {
+        if (this.box.numero_mappa == 164) {
+        // if (this.id_mappa == 164) {
+            return true;
+        }
         return localStorage.getItem('userId') ==  this.box.userId;
+        
 
     }
 
     belongsToMappa() {
-        return (this.boxService.get_titolo(this.id_mappa) == this.number_idea);
+        return (this.boxService.get_titolo(this.box.numero_mappa) == this.number_idea);
 
     }
 
     onStarted($event) {
     
         if (this.box.content == this.boxService.boxes[1].content) 
+        
             {
-                console.log('this.boxService.boxes: ', this.boxService.boxes[1].content, this.box.content)
                 this.flag_move = false;
                 return
             }
@@ -238,41 +264,48 @@ export class IdeaComponent implements  OnInit{
             this.max_left = 0;
                
         }
-
-      
        
-        this.onSubmit_3();
+            this.onSubmit_3();
+       
         
-        
+ 
     }
 
     onupdateMappa(box) {
         
-         this.boxService.updateBox(box)
+        //  this.boxService.updateBox(box, this.box.numero_mappa)
+        this.boxService.updateBox(box, this.id_mappa)
          .subscribe(
-             //result => console.log(result)
+             
+             result => {
+                 console.log(result);
+            
+             }
+             
          );      
      }
 
     onSubmit_3() {
        
-        if (this.box) {
+          if (this.box) {
             //edit
-            //     this.box.content = form.value.content;
-            this.boxService.updateBox(this.box)
+
+            if (this.id_mappa == 164) {
+
+            }
+           
+            this.boxService.updateBox(this.box, this.id_mappa)
                 .subscribe(
-                    //result => console.log(result)
-
-                );
-            //        this.box = null;
-
+                    result => 
+                    {
+                        console.log('result: ', result);
+                        
+                    }
+                   );
 
         } else {
            
-
            let num = this.boxService.get_Boxlength() + 1;
-  
-
            
             const box = new Box('Box  Mappa', 'Testo Box', 'Massimo',0, {top: 0, bottom: 0, left: 0, right: 0, height: 80, width: 200}, false, 1);
             
@@ -286,8 +319,6 @@ export class IdeaComponent implements  OnInit{
                     error => console.error(error)
                 );
         }
-
-        //       form.resetForm();
     }
 
     //Aggiunti for Quill
@@ -295,11 +326,11 @@ export class IdeaComponent implements  OnInit{
    //     console.log('editor blur!', quill);
       }
     
-      onEditorFocused(quill) {
+    onEditorFocused(quill) {
   //      console.log('editor focus!', quill);
       }
     
-      onEditorCreated(quill) {
+    onEditorCreated(quill) {
         this.editor = quill;
         quill.focus();
       //  this.focusvalue = true;
@@ -308,14 +339,18 @@ export class IdeaComponent implements  OnInit{
     
     //  onContentChanged({ quill, html, text }) {
       onContentChanged(event) {
-        //  console.log(event.text.length, 'event.text.length')
+        
+      
           if (event.text.length != 1)
           {
             this.box.content = event.html ;
-        
-   
-
-        this.onupdateMappa(this.box);
+            
+            // Ma perchè aggiorno? Per lo stato della navigazione credo
+             if (this.id_mappa != 164) {
+            // if (this.box.numero_mappa != 164) {
+                this.onupdateMappa(this.box);
+            }
+           
         }
     
       }

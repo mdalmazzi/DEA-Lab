@@ -28,4 +28,8 @@ export class ListMappeComponent {
             );   
               
     }
+
+    // openExample() {
+    //     alert('Idee');
+    // }
 }

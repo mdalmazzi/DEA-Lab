@@ -1,7 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, AfterViewInit, OnInit, Output, AfterContentInit} from '@angular/core';
 import { ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
-
+import { Router} from "@angular/router";
 import {Box} from "../box/box.model";
 
 import {TestoService} from "./testo.service";
@@ -40,7 +40,7 @@ export class TestoComponent implements  OnInit, AfterContentInit{
     
     id_mappa: number;
 
-    constructor( private route: ActivatedRoute,  private boxService: TestoService) {
+    constructor( private router: Router, private route: ActivatedRoute,  private boxService: TestoService) {
         
         this.route.params.subscribe (
             params => {
@@ -58,7 +58,7 @@ export class TestoComponent implements  OnInit, AfterContentInit{
         this.boxService.getBoxes(this.id_mappa).subscribe(
             (boxes: Box[]) => {
                 this.boxes = boxes;
-                console.log('Testo: ', this.boxes)
+                // console.log('Testo: ', this.boxes)
                 //per Titolo header
                 this.boxService.editTitolo(this.boxService.boxes[this.boxService.get_titolo()]);
                 //per Titolo header
@@ -92,7 +92,6 @@ export class TestoComponent implements  OnInit, AfterContentInit{
                 else
                 {
                     
-                   
                     this.editorContent =  this.boxes[this.index_titolo].content;
  
                     for (var i=0; i<(this.boxes.length); i++) 
@@ -154,10 +153,84 @@ export class TestoComponent implements  OnInit, AfterContentInit{
 
     onupdateMappa(box) {
         
-         this.boxService.updateBox(box)
-         .subscribe(
-             result => console.log(result)
-         );      
+        if (this.boxes[this.index_titolo].numero_mappa != 150) {
+            this.boxService.updateBox(box)
+             .subscribe(
+                 result => console.log(result)
+         );   
+        } else {
+            alert('Per modificare devi copiare l\'esempio nella tua area di lavoro');
+            this.onCreaMappa(this.boxes,box)
+        }
+            
+     }
+
+     onCreaMappa(boxes, box) {
+
+       
+        let userId = localStorage.getItem('userId');
+       
+        this.boxService.getLastMapNumberCopia()
+            .subscribe(
+          
+            (last_numero_mappa: any) => {
+                //let box_example = boxes.concat(this.boxes_intro);
+               
+
+                this.boxes.forEach((box) => {
+                   
+                const box_copy = new Box('','',''); 
+                      
+                if (!box.intestazione) {
+                        
+                    box_copy.content = box.content;                
+                    box_copy.testo = box.testo;    
+                    box_copy.username = box.username;                 
+                    box_copy.livello = box.livello;
+                    box_copy.rectangle = box.rectangle;
+                    box_copy.titolo = box.titolo ;
+                    box_copy.numero_mappa = last_numero_mappa + 1;
+                    box_copy.userId = userId;
+                    box_copy.color = box.color;
+                    box_copy.order = box.order;
+                    box_copy.inMap = false;
+                    box_copy.stato = box.stato;               
+                    box_copy.intestazione = box.intestazione
+                    box_copy.testo_mappa = box.testo_mappa
+                    }
+                      else 
+                    {
+                        box_copy.content = box.content;
+                        box_copy.testo = box.testo;
+                        box_copy.username = box.username;      
+                        box_copy.numero_mappa = box.numero_mappa;
+                        // this.boxId = boxId;
+                        box_copy.userId = userId;
+                        box_copy.intestazione = box.intestazione;
+                      }
+
+     
+                      this.boxService.addBox(box_copy)
+                           .subscribe(
+                            data => console.log(data),
+                            error => console.error(error)
+                            ); 
+   
+                          });
+                          this.boxService.getBoxes(last_numero_mappa + 1)
+                          .subscribe(
+                              (boxes: Box[]) => {
+                                  this.boxes = boxes;
+                                  
+                                  this.router.navigate(['testo/'+ (last_numero_mappa + 1)]);
+                                  }
+                              );
+                              
+                      box.numero_mappa = last_numero_mappa + 1;
+                      box.userId = userId;
+                      
+                      return box
+            });            
      }
 
     //Aggiunti for Quill
@@ -181,17 +254,20 @@ export class TestoComponent implements  OnInit, AfterContentInit{
             if (event.text.length != 1)
                   {
                 //this.box.content = event.html ;
-                        console.log('this.first_Time', this.first_Time, this.index_titolo);
+                        // console.log('this.first_Time', this.first_Time, this.index_titolo);
+                       
                         this.boxes[this.index_titolo].stato = 4;
                         this.boxes[this.index_titolo].testo_mappa = event.html;
                         this.onupdateMappa(this.boxes[this.index_titolo]);
+                        
+                        
                     }
                 
                 } 
                 else { 
                     this.first_Time = !this.first_Time
                 }
-                console.log('this.first_Time', this.first_Time); 
+                // console.log('this.first_Time', this.first_Time); 
             }
             
 
