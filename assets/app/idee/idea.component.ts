@@ -30,10 +30,16 @@ export class IdeaComponent implements  OnInit{
     @Input()flag_move;
     max_right: number = 0;
     max_left: number = 0;
+    
     alert_visibility: boolean = false;
     alertTesto = 'Al titolo deve sempre seguire un\'idea, non puoi cancellare questa idea.';
+
+    alert_visibility_example: boolean = false;
+    alertTestoExample = 'Per modificare questo esempio devi prima copiarlo nella tua area personale. Vuoi procedere alla copia?';
     
     private focusvalue: boolean = false;
+
+    private exampleIdee: number = 164;
   
     // used for Quill
     public editor;
@@ -66,6 +72,8 @@ export class IdeaComponent implements  OnInit{
             params => {
                 console.log('param: ', +params['id']);
                 this.id_mappa = +params['id'];
+
+               
                 
             }
         )     
@@ -80,16 +88,13 @@ export class IdeaComponent implements  OnInit{
         this.alert_visibility = !this.alert_visibility;
     }
 
+    alert_VisibilityExample() {
+        this.alert_visibility_example = !this.alert_visibility_example;
+    }
+
     ngOnInit() {
 
         console.log('Init IDEE');
-
-        // if (this.box.numero_mappa != this.id_mappa) {
-        //     this.box.numero_mappa = this.id_mappa;
-        //     console.log('Fatto copia');
-        // } else {
-        //     console.log('Fatto copia ma non funziona', this.box.numero_mappa, this.id_mappa);
-        // }
 
         if (this.number_idea == 1) 
         { 
@@ -98,9 +103,8 @@ export class IdeaComponent implements  OnInit{
         else
         {
             this.editorOptions.bounds = "#editor-container" + this.number_idea;
-        }
+        }     
         
-        //console.log(this.editorOptions.bounds)
         if (this.box.titolo && (this.box.numero_mappa == this.id_mappa)) {
             
             this.boxService.editTitolo(this.box);
@@ -116,9 +120,7 @@ export class IdeaComponent implements  OnInit{
                  this.drag_Axis_X[1] = false;
                  this.flag = true;
                  // Nice but inutile
-            }
-            
-                          
+            }             
         }
 
         this.boxService.get_titolo(this.id_mappa);
@@ -136,15 +138,16 @@ export class IdeaComponent implements  OnInit{
               }, 50)
     
         }
+
+        // this.editorContent = this.box.content;
             
-        //console.log('Idea component', this.box.stato, this.box.boxId)
         if (this.box.stato > 1) {
            
         } else if (!this.box.stato) {
             this.box.stato = 1
         }
 
-        if (this.id_mappa != 164) {
+        if (this.id_mappa != this.exampleIdee) {
             
             this.boxService.updateBox(this.box, this.box.numero_mappa)
                 .subscribe(
@@ -167,14 +170,14 @@ export class IdeaComponent implements  OnInit{
 
     onDelete() {
 
-        // if ((this.box.numero_mappa == 164) ) {
-        if (this.id_mappa == 164) {
+        
+        if (this.id_mappa == this.exampleIdee) {
 
-            alert('Per modificare devi copiare l\'esempio nella tua area di lavoro');
+            
            
-            // this.alert_visibility = true;
-            // return
-            this.boxService.updateBox(this.box, this.id_mappa);
+            this.alert_visibility_example = true;
+            return
+           
                   
             // procedura per copia esempio 
 
@@ -194,8 +197,8 @@ export class IdeaComponent implements  OnInit{
     }
 
     belongsToUser() {
-        if (this.box.numero_mappa == 164) {
-        // if (this.id_mappa == 164) {
+        if (this.box.numero_mappa == this.exampleIdee) {
+        // if (this.id_mappa == this.exampleIdee) {
             return true;
         }
         return localStorage.getItem('userId') ==  this.box.userId;
@@ -223,7 +226,7 @@ export class IdeaComponent implements  OnInit{
        //era 3
         if (event>0 && (this.box.livello)<2) {
             if (this.boxService.boxesOwn[1].boxId == this.box.boxId) {
-             //   Sono il primo, ma perchè boxesOwn?
+           
             //          
             } else  {
                 
@@ -273,7 +276,7 @@ export class IdeaComponent implements  OnInit{
 
     onupdateMappa(box) {
         
-        //  this.boxService.updateBox(box, this.box.numero_mappa)
+  
         this.boxService.updateBox(box, this.id_mappa)
          .subscribe(
              
@@ -290,18 +293,13 @@ export class IdeaComponent implements  OnInit{
           if (this.box) {
             //edit
 
-            if (this.id_mappa == 164) {
-
-            }
-           
-            this.boxService.updateBox(this.box, this.id_mappa)
-                .subscribe(
-                    result => 
-                    {
-                        console.log('result: ', result);
-                        
-                    }
-                   );
+            if (this.id_mappa == this.exampleIdee) {
+                
+                this.editor.blur();
+                this.alert_visibility_example = true;
+                
+                return
+            }       
 
         } else {
            
@@ -315,8 +313,8 @@ export class IdeaComponent implements  OnInit{
             
                this.boxService.addBox(box)
                 .subscribe(
-                    data => console.log(data),
-                    error => console.error(error)
+                    // data => console.log(data),
+                    // error => console.error(error)
                 );
         }
     }
@@ -345,14 +343,11 @@ export class IdeaComponent implements  OnInit{
           {
             this.box.content = event.html ;
             
-            // Ma perchè aggiorno? Per lo stato della navigazione credo
-             if (this.id_mappa != 164) {
-            // if (this.box.numero_mappa != 164) {
+             if (this.id_mappa != this.exampleIdee) {
+            // if (this.box.numero_mappa != this.exampleIdee) {
                 this.onupdateMappa(this.box);
-            }
+                }
            
-        }
-    
-      }
-
+            }
+          }
 }

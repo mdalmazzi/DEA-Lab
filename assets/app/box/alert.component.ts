@@ -44,7 +44,7 @@ export class AlertComponent  {
 
     updateBoxAfter(box: Box) {
     
-        this.boxService.updateBox(box)
+        this.boxService.updateBox(box, this.box.numero_mappa)
         .subscribe(
           //  result => console.log(result)
         )

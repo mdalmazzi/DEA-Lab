@@ -1,6 +1,7 @@
 import {Box} from "../box/box.model";
 import {Http, Response, Headers} from "@angular/http";
 import {EventEmitter, Injectable} from "@angular/core";
+import { Router} from "@angular/router";
 
 import 'rxjs/Rx';
 import {Observable} from "rxjs/Observable";
@@ -31,10 +32,10 @@ export class TestoService {
 
    
     // private path_to_server: string = 'http://localhost:3000'; 
-    private path_to_server: string = 'http://192.168.1.41:3000'; 
+    private path_to_server: string = 'http://192.168.1.54:3000'; 
 
 
-    constructor(private http: Http) {}
+    constructor(private router: Router, private http: Http) {}
 
     addBox(box: Box) {
 
@@ -316,7 +317,7 @@ export class TestoService {
           this.titoloisedit.emit(box);
    }
 
-    updateBox(box: Box) {
+    updateBox(box: Box, id_mappa) {
 
         if (box.stato == 4) {
            
@@ -324,6 +325,13 @@ export class TestoService {
             box.stato = 4
         }
        
+        if (id_mappa == 170) {
+
+            // alert('Per modificare devi copiare l\'esempio nella tua area di lavoro');
+
+             this.copiaExample(box, id_mappa);   
+        } 
+
         //console.log('siamo in service testo', this.boxes[0].testo_mappa)
         const body = JSON.stringify(box);
         
@@ -506,6 +514,101 @@ export class TestoService {
          return number_step;
     }
 
+    getLastMapNumberScaletta() {
+ 
+        return this.http.get(this.path_to_server + '/mappa_home' )
+            
+            .map((response: Response) => {
+                const boxes = response.json().obj;
+                
+                let transformedBoxes: Box[] = [];
+
+                //this.boxes = boxes;
+                
+                if (boxes.length != 0) {
+                    this.last_numero_mappa = 1;
+                    for (let box of boxes) {
+                        
+                        if ((box.titolo) && (box.numero_mappa > this.last_numero_mappa)) {
+                            
+                        this.last_numero_mappa = box.numero_mappa;}
+                    }
+                    
+                   
+                    } else {
+                        this.last_numero_mappa = 0;  
+                    }
+                return this.last_numero_mappa
+               
+            })
+             .catch((error: Response) => Observable.throw(error.json()));
+
+    }
+
+    copiaExample(box: Box, id_mappa) {
        
+        let userId = localStorage.getItem('userId');
+
+        // alert('Per modificare devi copiare l\'esempio nella tua area di lavoro');
+
+        this.getLastMapNumberScaletta()
+                .subscribe(
+                    (example) => {
+                                           
+                        this.last_numero_mappa = example;
+
+                        this.getBoxes(box.numero_mappa )
+                            .subscribe(
+                                (boxes: Box[]) => {
+
+                                    let box_example = boxes.concat(this.boxes_intro);
+                                    
+                                    box_example.forEach((box) => {
+                   
+                                        const box_copy = new Box(' ', ' ',  ' ', 0, box.rectangle, true, example + 1); 
+                  
+                                        box_copy.numero_mappa = example + 1;
+                                        box_copy.userId = userId;
+                                    
+                                        box_copy.color = box.color;
+                                        box_copy.order = box.order;
+                       
+                                        box_copy.stato = box.stato;
+                                        box_copy.content = box.content;
+                                        box_copy.testo = box.testo;
+                                        box_copy.username = box.username;
+                                        box_copy.livello = box.livello;
+                                        box_copy.titolo = box.titolo ;
+                                      
+                                       
+
+                                          
+                                        box_copy.numero_mappa = example + 1;
+                       
+                                        box_copy.userId = userId;
+                                        box_copy.intestazione = box.intestazione;
+                              
+                                        box_copy.inMap = false;
+
+                                        this.addBox(box_copy)
+                                             .subscribe(
+                                                  data => 
+                                                  {
+                                                   
+                                                    this.router.navigate(['testo/'+ (example + 1)]);
+                                                   return data;
+                                                                         
+                                                },
+                                                  error => console.error(error)
+                                              );
+                                                 
+                                             }); 
+                                })    
+                            }
+                            
+            )
+          
+        // procedura per copia esempio 
+    }
 
 }

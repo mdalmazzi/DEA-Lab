@@ -28,6 +28,9 @@ export class ScalettaComponent implements OnInit{
     border = "none";
     border_bottom = "2px solid #dbdbdb";
 
+    alert_visibility_example_scaletta: boolean = false;
+    alertTestoExample = 'Per modificare questo esempio devi prima copiarlo nella tua area personale. Vuoi procedere alla copia?';
+
     // used for Quill Testo
     public editor;
     public editorContent;
@@ -156,7 +159,9 @@ export class ScalettaComponent implements OnInit{
      }
 // considerare se farla
     
-
+    alert_VisibilityExampleScaletta() {
+            this.alert_visibility_example_scaletta = !this.alert_visibility_example_scaletta;
+    }
 
     onDirection_y(event) {
 
@@ -489,15 +494,10 @@ export class ScalettaComponent implements OnInit{
                                 else
                                 {
                                    console.log('Mai stato qui')
-                                }
-                        
+                                }             
                     }
                     else
                     {
-                        //console.log('sono annidati minore di 0', this.count_step(event), index, this.boxService.index_up +1)
-                        
-                        /* if ((index - this.count_step(event) <= (this.boxService.index_up +1)) && (this.boxService.boxes[index].livello == this.boxService.boxes[index - this.count_step(event)].livello)) 
-                        { */
                         console.log('Scendo bis')
 
                         if ((index - this.count_step(event) > (this.boxService.index_up)) && (this.boxService.boxes[index].livello == this.boxService.boxes[index - this.count_step(event)].livello) &&  this.boxService.boxes[index].livello != 2) 
@@ -506,13 +506,6 @@ export class ScalettaComponent implements OnInit{
                             console.log('6: ', index, this.boxService.index_up, this.count_step(event));
 
                             this.boxService.get_levelUp_ric_intermedia(index, this.boxService.boxes[index].livello)
-
-                           /*  if (index == this.boxService.control_up) {return}
-
-                            if ((index - this.count_step(event) > (this.boxService.control_up))) 
-                            {
-                                return
-                            } */
 
                             for (var _i:any = index; _i <= this.boxService.index_down; _i++) 
                                 {
@@ -544,7 +537,7 @@ export class ScalettaComponent implements OnInit{
         }
    
     //    this.callUpdateMappa(); // ma serve?
-    console.log('Siamo in uscita')
+ 
     this.aggiorna_move();
 
    // this.drag_x = true;
@@ -554,7 +547,7 @@ export class ScalettaComponent implements OnInit{
     aggiorna_move() {
         for (var _i: any = 0; _i < this.boxService.boxes.length; _i++) {
             this.boxService.boxes[_i].order = _i.toString();
-            this.boxService.updateBox(this.boxService.boxes[_i])
+            this.boxService.updateBox(this.boxService.boxes[_i], this.id_mappa)
             .subscribe(
                 result => console.log(result)
 
@@ -577,58 +570,43 @@ export class ScalettaComponent implements OnInit{
         }
 
     ngOnInit() {
-        this.visible_status = false;
-        
 
-        
+        this.visible_status = false;
+           
         if (this.box.testo != 'Testo Box') {
         setTimeout(() => {
             this.editorContent = this.box.testo;
             this.editorContentTitolo = this.box.content;
-          //  console.log('you can use the quill instance object to do something', this.editor);
-            // this.editor.disable();
+         
           }, 500)
 
         }
 
-        //this.box.stato = 3
 
         if (this.boxService.boxes[0].stato < 3) {
             
             this.box.stato = 3;
         } 
-        //this.box.stato = 3;
-        
-
-        /*  if (this.boxService.boxes[0].stato < 3) {
-            
-             this.box.stato = 3;
-         } */
-
-     /*    if (this.box.stato < 2) {
-            this.box.stato = 2;
-        } */
-
-       /*  if (this.box.stato > 3) {
-           
-        } else if (!this.box.stato) {
-        
-            this.box.stato = 3
-        } */
+      
 
         if (!this.box.intestazione) 
         {
-            if (this.box.numero_mappa != 145) {
-                this.boxService.updateBox(this.box)
+           
+            if (this.id_mappa == 167) {
+                console.log('Init')
+                // this.editor.blur();
+                // this.alert_visibility_example_scaletta = true;
+                
+                return
+            } else {
+                    
+            this.boxService.updateBox(this.box, this.id_mappa)
                 .subscribe(
                    // result => console.log(result)
     
-                )
-            }
-            
-        }
-
-        
+                )   
+            }     
+        }  
     }
 
     change_Visible_Status() {
@@ -653,9 +631,17 @@ export class ScalettaComponent implements OnInit{
     onSubmit_3() {
         
         if (this.box) {
-            //edit
-            //     this.box.content = form.value.content;
-            this.boxService.updateBox(this.box)
+           
+            if (this.id_mappa == 167) {
+                
+                console.log('Submit')
+                this.editor.blur();
+                this.alert_visibility_example_scaletta = true;
+                
+                return
+            }
+
+            this.boxService.updateBox(this.box, this.id_mappa)
                 .subscribe(
                     result => console.log(result)
 
@@ -687,7 +673,19 @@ export class ScalettaComponent implements OnInit{
     onupdateMappa(box) {
             
          this.box.stato = 3
-         this.boxService.updateBox(box)
+
+         if (this.id_mappa == 167) {
+
+            
+                
+            this.editor.blur();
+            this.alert_visibility_example_scaletta = true;
+            
+            return
+            
+        }
+
+         this.boxService.updateBox(box, this.id_mappa)
          .subscribe(
              //result => console.log(result)
          );      
@@ -719,34 +717,55 @@ export class ScalettaComponent implements OnInit{
             //Aggiunti for Quill
             onEditorBlured(quill) {
                 //console.log('editor blur!', quill);
+               
               }
             
             onEditorFocused(quill) {
                 //console.log('editor focus!', quill);
+                if (this.id_mappa == 167) {
+                
+                    this.editor.blur();
+                    this.alert_visibility_example_scaletta = true;
+                    
+                    return
+                    
+                }
               }
             
             onEditorCreated(quill) {
                 this.editor = quill;
-                //console.log('quill is ready! this is current quill instance object', quill);
+                console.log('quill is ready! this is current quill instance object', quill, this.editor);
               }
             
             onContentChanged({ quill, html, text }) {
                 // console.log(html)
                 this.box.testo = this.editorContent;
 
-                if (this.box.numero_mappa != 145) {
+                // if (this.box.numero_mappa != 167) {
                     this.onupdateMappa(this.box);
-                }
+                // }
                 
                 //console.log('quill content is changed!', quill, html, text);
               }
 
               onEditorBluredTitolo(quill) {
                 //console.log('editor blur!', quill);
+               
+               
               }
             
               onEditorFocusedTitolo(quill) {
                 //console.log('editor focus!', quill);
+                if (this.id_mappa == 167) {
+
+            
+                
+                    this.editorTitolo.blur();
+                    this.alert_visibility_example_scaletta = true;
+                    
+                    return
+                    
+                }
               }
             
               onEditorCreatedTitolo(quill) {
@@ -755,18 +774,17 @@ export class ScalettaComponent implements OnInit{
                 quill.focus();
 
                 //this.editorTitolo = quill;
-                //console.log('quill is ready! this is current quill instance object', quill);
+                console.log('quill is ready! this is current quill instance object', quill, this.editorTitolo);
               }
             
               onContentChangedTitolo(event) {
                 //this.box.content = this.editorContentTitolo ;
                 if (event.text.length != 1)
                       {
-                            this.box.content = event.html;
-                            if (this.box.numero_mappa != 145) {
-                               this.onupdateMappa(this.box);
-                            }
-                            
+                        this.box.content = event.html;
+                            // if (this.box.numero_mappa != 167) {
+                      //  this.onupdateMappa(this.box);
+                            // }                   
                       }
                 //console.log('quill content is changed!', quill, html, text);
               }

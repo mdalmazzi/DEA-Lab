@@ -30,7 +30,7 @@ export class ScalettaService {
 
     // private path_to_server: string = 'http://localhost:3000'; 
 
-    private path_to_server: string = 'http://192.168.1.41:3000'; 
+    private path_to_server: string = 'http://192.168.1.54:3000'; 
 
     
     boxisedit = new EventEmitter<Box>();
@@ -339,8 +339,7 @@ export class ScalettaService {
     
 
     getLastMapNumber() {
-
-       
+ 
         return this.http.get(this.path_to_server + '/mappa_home' )
             
             .map((response: Response) => {
@@ -439,21 +438,103 @@ export class ScalettaService {
             });            
      }
 
-    updateBox(box: Box) {
+     copiaExample(box: Box, id_mappa) {
+       
+        let userId = localStorage.getItem('userId');
+
+        // alert('Per modificare devi copiare l\'esempio nella tua area di lavoro');
+
+        this.getLastMapNumber()
+                .subscribe(
+                    (example) => {
+                                           
+                        this.last_numero_mappa = example;
+
+                        this.getBoxes(box.numero_mappa )
+                            .subscribe(
+                                (boxes: Box[]) => {
+
+                                    let box_example = boxes.concat(this.boxes_intro);
+                                    
+                                    box_example.forEach((box) => {
+                   
+                                        const box_copy = new Box(' ', ' ',  ' ', 0, box.rectangle, true, example + 1); 
+                  
+                                        box_copy.numero_mappa = example + 1;
+                                        box_copy.userId = userId;
+                                    
+                                        box_copy.color = box.color;
+                                        box_copy.order = box.order;
+                       
+                                        box_copy.stato = box.stato;
+                                        box_copy.content = box.content;
+                                        box_copy.testo = box.testo;
+                                        box_copy.username = box.username;
+                                        box_copy.livello = box.livello;
+                                        box_copy.titolo = box.titolo ;
+                                      
+                                       
+
+                                          
+                                        box_copy.numero_mappa = example + 1;
+                       
+                                        box_copy.userId = userId;
+                                        box_copy.intestazione = box.intestazione;
+                              
+                                        box_copy.inMap = false;
+
+                                        this.addBox(box_copy)
+                                             .subscribe(
+                                                  data => 
+                                                  {
+                                                   
+                                                    this.router.navigate(['scaletta/'+ (example + 1)]);
+                                                   return data;
+                                                 
+                                                        
+                                                },
+                                                  error => console.error(error)
+                                              );
+                                                 
+                                             }); 
+                                })    
+                            }
+                            
+            )
+          
+        // procedura per copia esempio 
+    }
+
+    updateBox(box: Box, id_mappa) {
 
         /* if (box.stato > 3) {
            
         } else if (!box.stato) {
             box.stato = 3
         } */
+        
+        console.log(id_mappa, box.numero_mappa)
 
+        if ((id_mappa == 167) ) {
 
-        if ((box.numero_mappa == 145) ) {
+            //  alert('Per modificare devi copiare l\'esempio nella tua area di lavoro');
 
-             alert('Per modificare devi copiare l\'esempio nella tua area di lavoro');
-  
-            this.onCreaMappa(this.boxes, box); 
-       
+             this.copiaExample(box, id_mappa);   
+
+             const body = JSON.stringify(box);
+             const headers = new Headers({'Content-Type': 'application/json'});
+             /* const token = localStorage.getItem('token')
+            ? '?token=' + localStorage.getItem('token')
+            : ''; */
+
+             const token = localStorage.getItem('userId')
+                ? '?token=' + localStorage.getItem('userId')
+                : '';
+            
+             return this.http.patch(this.path_to_server + '/mappa_scaletta/' + box.boxId + token, body, {headers: headers})
+                .map((response: Response) => response.json())
+                .catch((error: Response) => Observable.throw(error.json()));
+             
 
         } else {
 

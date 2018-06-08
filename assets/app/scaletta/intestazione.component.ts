@@ -21,6 +21,9 @@ export class IntestazioneComponent implements OnInit{
     
     visible_status: boolean;
 
+    alert_visibility_example_scaletta: boolean = false;
+    alertTestoExample = 'Per modificare questo esempio devi prima copiarlo nella tua area personale. Vuoi procedere alla copia?';
+
     // used for Quill
     public editor;
     public editorContent;
@@ -41,6 +44,22 @@ export class IntestazioneComponent implements OnInit{
         this.route.params.subscribe (
             params => {
                   this.id_mappa = +params['id'];
+                  
+                  this.boxService.getBoxesIntestazione(this.id_mappa)
+                    .subscribe(
+                        (boxes: Box[]) => {
+                            this.boxes = boxes;
+                
+                        for (var i=0; i<(this.boxes.length); i++) {
+                        if ((this.boxes[i].intestazione) && (this.boxes[i].content == this.content))
+                        {
+                            this.box = this.boxes[i]
+                            this.editorContent = this.box.testo;                  
+                        }
+
+                    } 
+                }     
+                );
             }
         )
     }
@@ -68,25 +87,23 @@ export class IntestazioneComponent implements OnInit{
     ngOnInit() {
 
        
-     
-        this.boxService.getBoxesIntestazione(this.id_mappa)
-        .subscribe(
-            (boxes: Box[]) => {
-                this.boxes = boxes;
-                //console.log(boxes);
-                for (var i=0; i<(this.boxes.length); i++) {
-                    if ((this.boxes[i].intestazione) && (this.boxes[i].content == this.content))
-                    {
-                        this.box = this.boxes[i]
-                        this.editorContent = this.box.testo;
-                        
-                    }
+     // spostato in constructor per copia esempio
+
+        // this.boxService.getBoxesIntestazione(this.id_mappa)
+        // .subscribe(
+        //     (boxes: Box[]) => {
+        //         this.boxes = boxes;
+                
+        //         for (var i=0; i<(this.boxes.length); i++) {
+        //             if ((this.boxes[i].intestazione) && (this.boxes[i].content == this.content))
+        //             {
+        //                 this.box = this.boxes[i]
+        //                 this.editorContent = this.box.testo;                  
+        //             }
                    
-                   
-                    } 
-                }
-                  
-        );
+        //             } 
+        //         }     
+        // );
 
   
         this.visible_status = false;
@@ -100,32 +117,33 @@ export class IntestazioneComponent implements OnInit{
             {
                 this.visible_status = false
             }
-
-            
-
-       /*        this.boxService.updateBox(this.box)
-            .subscribe(
-                result => console.log(result)
-
-            )   */
-    
         }
     
-  change_Visible_Status() {
+    change_Visible_Status() {
             this.visible_status = !this.visible_status;
         }
    
     
     onSubmit_3() {
         
-        console.log(this.box)
+      
         if (this.box) {
             //edit
               this.box.testo = this.editorContent
-              this.boxService.updateBox(this.box)
+
+              if (this.id_mappa == 167) {
+                
+                this.editor.blur();
+                this.alert_visibility_example_scaletta = true;
+                
+                return
+                } 
+
+
+              this.boxService.updateBox(this.box, this.id_mappa)
                 .subscribe(
                     result => console.log(result)
-                )
+                    )
                 } 
                 else 
                 {
@@ -158,8 +176,16 @@ export class IntestazioneComponent implements OnInit{
     }
 
     onupdateMappa(box) {
+
+        if (this.id_mappa == 167) {
+            console.log('Update Intestazione')
+            this.editor.blur();
+            this.alert_visibility_example_scaletta = true;
+            
+            return
+        }
         
-         this.boxService.updateBox(box)
+         this.boxService.updateBox(box, this.id_mappa)
          .subscribe(
              result => console.log(result)
          );      
@@ -173,19 +199,52 @@ export class IntestazioneComponent implements OnInit{
          );      
      }
 
-    
+     alert_VisibilityExampleScaletta() {
+        this.alert_visibility_example_scaletta = !this.alert_visibility_example_scaletta;
+}
+
+     onEditorBluredTitolo(quill) {
+        //console.log('editor blur!', quill);
+        }
+            
+    onEditorFocusedTitolo(quill) {
+                console.log('editor focus!', quill);
+                if (this.id_mappa == 167) {
+  
+                
+                    this.editorTitolo.blur();
+                    this.alert_visibility_example_scaletta = true;
+                    
+                    return
+                    
+                }
+    }
 
             //Aggiunti for Quill
-     onEditorBlured(quill) {
+    onEditorBlured(quill) {
         //console.log('editor blur!', quill);
+            this.onSubmit_3()
         }
             
     onEditorFocused(quill) {
                 //console.log('editor focus!', quill);
+                if (this.id_mappa == 167) {
+            
+                    this.editor.blur();
+                    this.alert_visibility_example_scaletta = true;
+                    
+                    return
+                    
+                }
     }
             
     onEditorCreated(quill) {
         this.editor = quill;
+                //console.log('quill is ready! this is current quill instance object', quill);
+    }
+
+    onEditorCreatedTitolo(quill) {
+        this.editorTitolo = quill;
                 //console.log('quill is ready! this is current quill instance object', quill);
     }
             

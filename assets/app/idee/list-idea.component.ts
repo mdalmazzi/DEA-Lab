@@ -21,11 +21,18 @@ export class ListIdeeComponent implements OnInit {
     sign_boxes = [0,0,0,0,0];
     num: number;
     private box = <Box>{};
-    private rectangle =<BoundingRectangle>{};  
+    private rectangle =<BoundingRectangle>{}; 
+
+    private exampleIdee: number = 164;
+
+    alert_visibility_example: boolean = false;
+    alertTestoExample = 'Per modificare questo esempio devi prima copiarlo nella tua area personale. Vuoi procedere alla copia?';
+    
 
     //@Output() editClicked = new EventEmitter<string>();
 
     constructor(public router: Router, private route: ActivatedRoute, private boxService: IdeaService) {
+
         this.route.params.subscribe (
             params => {
                // console.log( params);
@@ -36,25 +43,21 @@ export class ListIdeeComponent implements OnInit {
                 this.boxService.getBoxes(this.id_mappa)
                     .subscribe(
                     (boxes: Box[]) => {
-                    this.boxes = boxes;
-                    
-                    this.number_boxes = this.boxes.length;
-                    result => console.log(result, 'Idea');    
-                    
-                });
-           }
-        )
-    }
-   
-    
+                        this.boxes = boxes;                   
+                        this.number_boxes = this.boxes.length; 
+                     });
+               }
+            )
+        } 
+
  
     // Inutile
     settaLivello(event) {
         
-        if (event[0]=='left') {
-            console.log(event)
+        if (event[0] == 'left') {
+            // console.log(event)
         } else {
-            console.log(event) 
+            // console.log(event) 
         }
     }
 
@@ -64,16 +67,17 @@ export class ListIdeeComponent implements OnInit {
 
         this.direction_move = '';
         
-        // Toglierlo è già su constructor
-        this.boxService.getBoxes(this.id_mappa)
-            .subscribe(
-                (boxes: Box[]) => {
-                    this.boxes = boxes;
+        // Toglierlo è già su constructor dopo modifiche per Example
+
+        // this.boxService.getBoxes(this.id_mappa)
+        //     .subscribe(
+        //         (boxes: Box[]) => {
+        //             this.boxes = boxes;
                     
-                    this.number_boxes = this.boxes.length;
-                    result => console.log(result, 'Idea');              
-                }
-            );
+        //             this.number_boxes = this.boxes.length;
+        //             result => console.log(result, 'Idea');              
+        //         }
+        //     );
     }
 
     onNavigate_Boxes() {
@@ -82,14 +86,19 @@ export class ListIdeeComponent implements OnInit {
         
     }
 
+    alert_VisibilityExample() {
+        this.alert_visibility_example = !this.alert_visibility_example;
+    }
+
     onSubmit_4() { 
 
-        // console.log('this.box.numero_mappa: ',this.box.numero_mappa);
-
-        if ((this.id_mappa == 164)) {
-            alert('Per modificare devi copiare l\'esempio nella tua area di lavoro');
+        
+        if ((this.id_mappa == this.exampleIdee)) {
+            // alert('Per modificare devi copiare l\'esempio nella tua area di lavoro');
             // this.boxService.onCreaMappa(this.boxService.boxes, this.box); 
-            this.boxService.updateBox(this.boxes[0], this.id_mappa);    
+            this.alert_visibility_example = true;
+            return
+            // this.boxService.updateBox(this.boxes[0], this.id_mappa);    
 
             // procedura per copia esempio 
 
@@ -121,8 +130,8 @@ export class ListIdeeComponent implements OnInit {
 
              this.boxService.addBox(this.box)
                 .subscribe(
-                    data => console.log(data),
-                    error => console.error(error)
+                    // data => console.log(data),
+                    // error => console.error(error)
                 );
                 this.number_boxes = this.boxes.length;
        

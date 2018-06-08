@@ -33,6 +33,9 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
     @Output() aggiornaRelation = new EventEmitter<number>();
 
     alertTesto = 'Troppi livelli. Oltre al titolo è possibile inserire due livelli.';
+
+    alert_visibility_example_box: boolean = false;
+    alertTestoExample = 'Per modificare questo esempio devi prima copiarlo nella tua area personale. Vuoi procedere alla copia?';
     
     //private x_start;
     //private y_start;
@@ -118,8 +121,9 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
    
     
     longtap(event: any) {
+
         
-           setTimeout(() => {
+        setTimeout(() => {
             if (this.rect_4_angle && this.isDown) {
                 this.rect_4_angle = false;   
              
@@ -138,9 +142,14 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
       }
 
     onEdit() {
-        if (!this.box.titolo) {this.boxService.editBox(this.box);}
-        else {
-            this.boxService.editTitolo(this.box)
+
+        if (!this.box.titolo) 
+        {
+            this.boxService.editBox(this.box);
+        }
+        else 
+        {
+            this.boxService.editTitolo(this.box);
         }
 
     }
@@ -151,8 +160,15 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
 
     updateBoxAfter(box: Box) {
     
+        if (this.id_mappa == 141) {
+                
+            this.editor.blur();
+            this.alert_visibility_example_box = true;
+            
+            return
+        }
 
-        this.boxService.updateBox(box)
+        this.boxService.updateBox(box, this.id_mappa)
         .subscribe(
            // result => console.log(result)
         )
@@ -196,7 +212,15 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
         
         this.box.color = '#' + color;
 
-        this.boxService.updateBox(this.box)
+        if (this.id_mappa == 141) {
+                
+            this.editor.blur();
+            this.alert_visibility_example_box = true;
+            
+            return
+        }
+
+        this.boxService.updateBox(this.box, this.id_mappa)
         .subscribe(
             result => console.log(result)
 
@@ -375,11 +399,9 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
         this.init_resize = true;
         if (this.box.titolo && (this.box.numero_mappa == this.id_mappa)) {
                  
-          
 
             this.box.rectangle.left = 500;
-            this.box.rectangle.top = 650;
-            
+            this.box.rectangle.top = 650; 
         
           
             this.boxService.editTitolo(this.box)
@@ -388,47 +410,52 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
          this.draggable_On_Off = true;
          this.init_width = false;
          // Mi sembra inutile
-         if (this.box.content.length != 0) {
+         if (this.box.content.length != 0) 
+         {
              if (this.box.content.length < 30)
-             {this.positionBox(46, 115, this.init_width);} else
-             {this.positionBox(46, 115, this.init_width);}
-             
-          /*    {this.positionBox(60, 120, this.init_width);} else
-             {this.positionBox(60, 200, this.init_width);} */
-             
-         } 
+                 {
+                     
+                
+                    this.positionBox(46, 115, this.init_width);
+                 } 
+                else
+                 {
+                    //this.positionBox(46, 115, this.init_width);
+                }
+                    // this.positionBox(this.editor.clientHeight, this.editor.clientWidth, this.init_width);
+                
+
+                 } 
              
         if ((this.box.content != 'Content Box')  && (this.box.content != '<p>Inserisci il titolo ...</p>')) {
-          //  setTimeout(() => {
-             
+          
 
-                this.editorContent = this.box.content;
+                this.editorContent = this.box.content;        
                
-               
-                // this.editor.disable();
-        //      }, 50) 
             } else {
 
                 if (this.box.titolo) 
                 {
-                    this.editorOptions.placeholder = "Scrivi qui il titolo..."
+                    this.editorOptions.placeholder = "Scrivi qui il titolo...";
                   }
                 else
-                { this.editorOptions.placeholder = "Scrivi qui ..." }
+                { 
+                    this.editorOptions.placeholder = "Scrivi qui ...";
+                }
                 
             }
 
 
-            if (this.box.color == undefined) 
+        if (this.box.color == undefined) 
             { this.box.color = '#B4B4B4'}  
         
         // proprio necessario aggiornare? tolgo e vediamo
 
         if (this.box.numero_mappa != 141) {
-                this.boxService.updateBox(this.box)
-                    .subscribe(
+            this.boxService.updateBox(this.box, this.id_mappa)
+                .subscribe(
                     //result => console.log(result)
-            )
+                )
         }
             
         // proprio necessario aggiornare? tolgo e vediamo
@@ -437,19 +464,19 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
 
     ngAfterViewInit() {
 
-        //console.log('ngAfterViewInit');
+        
 
         this.box_created.emit(this.box);
         
     }
 
     ngAfterViewChecked() {
-        //console.log('ngAfterViewChecked');
+       
        
     }
 
     ngAfterContentInit() {
-        //console.log('ngAfterContentInit');
+        
     }
 
 
@@ -462,18 +489,17 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
     }
 
   on_off_Drag(event: MouseEvent) {
+
    }
   
   
   onResizeStart(event: ResizeEvent): void {
       
-        this.draggable_On_Off = false;     
- }
+        this.draggable_On_Off = false;   
+
+}
 
   onResizeEnd(event: ResizeEvent): void {
-        
-    
-
         
       if (event.edges.left) {
          if (this.init_resize) {
@@ -481,6 +507,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
             this.init_resize = !this.init_resize;
      
         } else {
+
             this.box.rectangle.left = Number(event.rectangle.left);
      
         }
@@ -551,7 +578,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
             height: `${this.box.rectangle.height}px`
         };
 
-        this.boxService.updateBox(this.box)
+        this.boxService.updateBox(this.box, this.id_mappa)
             .subscribe(
                 result => console.log(result)
 
@@ -562,28 +589,31 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
 
     }
 
-
     onstarted(event) {
+
+        if (this.id_mappa == 141) {
+
+            this.draggable_On_Off = false;
+                
+            this.editor.blur();
+            this.alert_visibility_example_box = true;
+            
+            return
+        }
      
      this.isDown = true;
      this.longtap(event);
-     this.widthEditor = this.editor.container.clientWidth;
-    
-    
+     this.widthEditor = this.editor.container.clientWidth;  
      
      //Tolto 2103
      //this.updateRelation.emit();
     
-     //Tolto 2103
-
-     
+     //Tolto 2103   
      
     }
 
     onMove(event: MouseEvent)
-    {   
-
-          
+    {            
             /* setTimeout(() => {
                 if (!this.rect_4_angle ) {
                     this.rect_4_angle = !this.rect_4_angle;
@@ -591,23 +621,36 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
             }, 2000);  */
             
            // this.isMove = true;
+
+           if (this.id_mappa == 141) {
+                
+            this.editor.blur();
+            this.alert_visibility_example_box = true;
+            
+            return
+
+            }
          
            if (!this.box.titolo )    
                {                 
-                this.aggiornaRelation.emit(this.index_box)       
+
+                this.aggiornaRelation.emit(this.index_box);  
+
                 }
+
                else 
+
                {
                 
-                this.updateRelation.emit()
+                this.updateRelation.emit();
                    
                 }
           }
 
 
-
     onstopped_view(event) {
         //this.isMove = false;
+       
         this.isDown = false;
        
         if (!this.box.titolo) 
@@ -625,10 +668,13 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
      
         if (this.editor) {
             //modifica Max 2202
-           
+                      
+
             this.box.rectangle.height = this.editor.container.clientHeight;
-            ;
-            //this.box.rectangle.width = this.editor.container.clientWidth;
+            //oggi 0705
+            // this.box.rectangle.width = this.editor.container.clientWidth;
+            //oggi 0705
+           
             
             //modifica Max 2202
         }
@@ -638,26 +684,34 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
                position: 'absolute',
                left: `${this.box.rectangle.left}px`,
                top: `${this.box.rectangle.top}px`,
+
                // cambiato dopo modifica al changecontent quill
                //modifica 2202 max
           
-               //modifica 2202 max
-               height: `${this.box.rectangle.height}px`,
+               //modifica 0705 max
+            //    height: `${this.box.rectangle.height}px`,
 
                //modifica Max altrimenti risetta in end
-               //width: `${this.widthEditor}px`
+               width: `${this.widthEditor}px`
                
                //modifica Max 
                
-          }; 
- 
-        this.boxService.updateBox(this.box)
-             .subscribe(
-              //   result => console.log(result)
+            }; 
 
-             );
-             //this.updateRelation.emit(this.number_box);
-             
+            if (this.id_mappa == 141) {
+                
+                this.editor.blur();
+                this.alert_visibility_example_box = true;
+            
+                return
+            }
+ 
+            this.boxService.updateBox(this.box, this.id_mappa)
+                 .subscribe(
+                  //   result => console.log(result)
+
+                 );
+    
     }
 
     aumentaLivelloTouch(event: TouchEvent) {
@@ -672,8 +726,6 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
 
     
     aumentaLivello() {   
-        
-         
 
             if (this.boxService.boxes[this.boxService.changeLevel].livello == 0 && (this.boxService.test_Box_level0() == 2))
             {
@@ -708,7 +760,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
 
                  for (var _i: any = 0; _i < this.boxService.boxes.length; _i++) {
                     this.boxService.boxes[_i].order = _i.toString();
-                    this.boxService.updateBox(this.boxService.boxes[_i])
+                    this.boxService.updateBox(this.boxService.boxes[_i], this.id_mappa)
                     .subscribe(
                         //result => console.log(result)
         
@@ -739,7 +791,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
 
                         for (var _i: any = 0; _i < this.boxService.boxes.length; _i++) {
                             this.boxService.boxes[_i].order = _i.toString();
-                            this.boxService.updateBox(this.boxService.boxes[_i])
+                            this.boxService.updateBox(this.boxService.boxes[_i], this.id_mappa)
                                 .subscribe(
                             //result => console.log(result)
             
@@ -828,7 +880,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
             
                     for (var _i: any = 0; _i < this.boxService.boxes.length; _i++) {
                             this.boxService.boxes[_i].order = _i.toString();
-                            this.boxService.updateBox(this.boxService.boxes[_i])
+                            this.boxService.updateBox(this.boxService.boxes[_i], this.id_mappa)
                                     .subscribe(
                                    // result => console.log(result)
             
@@ -890,7 +942,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
 
                     for (var _i: any = 0; _i < this.boxService.boxes.length; _i++) {
                         this.boxService.boxes[_i].order = _i.toString();
-                        this.boxService.updateBox(this.boxService.boxes[_i])
+                        this.boxService.updateBox(this.boxService.boxes[_i], this.id_mappa)
                         .subscribe(
                           //  result => console.log(result)
             
@@ -929,7 +981,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
 
             for (var _i: any = 0; _i < this.boxService.boxes.length; _i++) {
                 this.boxService.boxes[_i].order = _i.toString();
-                this.boxService.updateBox(this.boxService.boxes[_i])
+                this.boxService.updateBox(this.boxService.boxes[_i], this.id_mappa)
                     .subscribe(
                             result => 
                             {
@@ -1017,7 +1069,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
         
             for (var _i: any = 0; _i < this.boxService.boxes.length; _i++) {
             this.boxService.boxes[_i].order = _i.toString();
-            this.boxService.updateBox(this.boxService.boxes[_i])
+            this.boxService.updateBox(this.boxService.boxes[_i], this.id_mappa)
                 .subscribe(
                // result => console.log(result)
         
@@ -1106,7 +1158,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
             
                 for (var _i: any = 0; _i < this.boxService.boxes.length; _i++) {
                 this.boxService.boxes[_i].order = _i.toString();
-                this.boxService.updateBox(this.boxService.boxes[_i])
+                this.boxService.updateBox(this.boxService.boxes[_i], this.id_mappa)
                     .subscribe(
                   //  result => console.log(result)
             
@@ -1178,7 +1230,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
                     for (var _i: any = 0; _i < this.boxService.boxes.length; _i++)
                         {
                             this.boxService.boxes[_i].order = _i.toString();
-                            this.boxService.updateBox(this.boxService.boxes[_i])
+                            this.boxService.updateBox(this.boxService.boxes[_i], this.id_mappa)
                                 .subscribe(
                                     result => 
                                     {
@@ -1327,7 +1379,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
             for (var _i: any = 0; _i < this.boxService.boxes.length; _i++)
                 {
                     this.boxService.boxes[_i].order = _i.toString();
-                    this.boxService.updateBox(this.boxService.boxes[_i])
+                    this.boxService.updateBox(this.boxService.boxes[_i], this.id_mappa)
                         .subscribe(
                             result => 
                             {
@@ -1339,40 +1391,43 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
                             }
                         );         
                 };
-                
-            //this.onupdateMap();  
-           /*  this.updateRelation.emit();      
-            this.boxService.changeLevel = 0;
-    
-            array_push = 0; */
+      
             }              
-        /*     return     */   
+     
         }          
     }
+
+
+    alert_VisibilityExample() {
+        this.alert_visibility_example_box = !this.alert_visibility_example_box;
+    }
+    
 
     onSubmit_2() {
         if (this.box) {
             //edit
-     
-            this.boxService.updateBox(this.box)
-                .subscribe(
-                   // result => console.log(result)
 
-                );
-    //        this.box = null;
+            if (this.id_mappa == 141) {
+                
+                this.editor.blur();
+                this.alert_visibility_example_box = true;
+                
+                return
+            }
+     
+            // this.boxService.updateBox(this.box, this.id_mappa)
+            //     .subscribe(
+            //        // result => console.log(result)
+
+            //     );
+    //   
 
 
         } else {
-            // create
-        //    const box = new Box(form.value.content, 'Massimo')
-        //    this.boxService.addBox(box)
-         //       .subscribe(
-            //            data => console.log(data),
-            //           error => console.error(error)
-            //       );
+      
         }
 
- //       form.resetForm();
+ 
     }
 
 
@@ -1446,13 +1501,16 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
     
     onEditorCreated(quill) 
         {
-            this.editor = quill
+            this.editor = quill;
+            console.log('this.editor', this.editor)
            // console.log('this.editor ', this.editor);
          }
 
       
 
     positionBox(new_height, new_width, flag_width) {    
+
+        console.log('PositionBox');
 
         let change_width;
         let change_height;
@@ -1471,6 +1529,8 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
         // è stato posizionato (resize) a mano e quindi non va sul cerchio
         if (this.box.inMap) 
             {
+                // alert('1');
+                // change_height = new_height;
                 change_height = this.box.rectangle.height;
                 // altrimenti va capo con min-width
 
@@ -1479,7 +1539,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
 
         if (flag_width && this.box.inMap)
             {
-                
+                // alert('2');
                 change_height = new_height;
                 change_width = new_width;
                 this.init_width = false;
@@ -1487,14 +1547,17 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
             } 
             else 
             {
-                
-                change_height = new_height;     
+              
+                // change_height = new_height;  
+               
+                change_height = this.box.rectangle.height;  
+               
                
             }
 
         if (this.box.rectangle.left != 999) {
      
-
+            // alert('4');
             this.style[this.number_box] = {
 
              position: 'absolute',
@@ -1503,6 +1566,7 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
              top: `${this.box.rectangle.top}px`,
              
              width: `${change_width}px`,
+            //  width: `${new_height}px`,
              height: `${change_height}px`
              
             }
@@ -1604,11 +1668,15 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
     
       //onContentChanged({ quill, html, text }) {
     onContentChanged(event) {
+
        
         if (event.text.length != 1)
         {
  
           this.box.content = event.html; 
+
+        //   this.box.rectangle.height = event.editor.container.clientHeight;
+        //   this.box.rectangle.width = event.editor.container.clientWidth;
 
           this.positionBox(event.editor.container.clientHeight, event.editor.container.clientWidth, false);
         
@@ -1624,8 +1692,16 @@ export class BoxComponent implements AfterViewInit, AfterContentInit, OnInit{
 
 
     onupdateMappa(box) {
+
+        if (this.id_mappa == 141) {
+                
+            this.editor.blur();
+            this.alert_visibility_example_box = true;
+            
+            return
+        }
         
-         this.boxService.updateBox(box)
+         this.boxService.updateBox(box, this.id_mappa)
          .subscribe(
              //result => console.log(result)
          );      

@@ -33,7 +33,12 @@ export class ListBoxComponent implements OnInit, AfterContentInit, AfterViewInit
       @ViewChild('svgContainer') svgContainer: ElementRef;
       @ViewChild('Container') Container: ElementRef;
       
-      @ViewChildren('line') line: QueryList<ElementRef>;    
+      @ViewChildren('line') line: QueryList<ElementRef>;  
+
+      alertTesto = 'Troppi livelli. Oltre al titolo è possibile inserire due livelli.';
+
+      alert_visibility_example_box: boolean = false;
+      alertTestoExample = 'Per modificare questo esempio devi prima copiarlo nella tua area personale. Vuoi procedere alla copia?';
       
       public startX= [0];
       public startY= [0];
@@ -57,8 +62,6 @@ export class ListBoxComponent implements OnInit, AfterContentInit, AfterViewInit
       public box_found;
 
       public change_made: boolean = true;
-
-
   
       private centreSX;
       private centreSY;
@@ -88,9 +91,26 @@ export class ListBoxComponent implements OnInit, AfterContentInit, AfterViewInit
     this.route.params.subscribe (
         params => {
             this.id_mappa = +params['id'];
+
+            this.boxService.getBoxes(this.id_mappa).subscribe(
+                (boxes: Box[]) => {
+                    
+                    this.boxes = boxes;
+                    console.log(this.boxes, 'list box copia');
+                    
+                }
+             );
         }
-    );     
+    );    
+    
+
+    //Inserito per copia esempio
+    
   }
+
+  alert_VisibilityExample() {
+    this.alert_visibility_example_box = !this.alert_visibility_example_box;
+}
 
 /* onResize(event) {
     console.log(event);
@@ -118,6 +138,14 @@ getRandomArbitrary(min, max) {
 
     // double tap   
     //console.log('Double Tap');
+    if (this.id_mappa == 141) {
+                
+       // this.editor.blur();
+        this.alert_visibility_example_box = true;
+        
+        return
+    }
+
     this.createBox(event);
 
 
@@ -286,7 +314,6 @@ Resize(event: any) {
 
             
             max_x = Math.max((max_x), ((parseInt(this.boxComponent.toArray()[i].style[this.boxService.boxes[i].boxId].left, 10) + parseInt(this.boxComponent.toArray()[i].style[this.boxService.boxes[i].boxId].width, 10))));
-
             
         }
 
@@ -580,16 +607,15 @@ ngOnInit(){
         
       }, 2000);
     
-    this.boxService.getBoxes(this.id_mappa).subscribe(
-        (boxes: Box[]) => {
+      // Tolto quando inserito copia esempi e spostato su constructor
+    // this.boxService.getBoxes(this.id_mappa).subscribe(
+    //     (boxes: Box[]) => {
             
-            this.boxes = boxes;
-            console.log(this.boxes, 'list box');
-            //this.progress = 'finished';
-        }
-        
-        
-    );
+    //         this.boxes = boxes;
+    //         console.log(this.boxes, 'list box');
+    //         //this.progress = 'finished';
+    //     }
+    //  );
 
     
    // console.log('Stampa boxesown e boxes -- Before',this.boxes, this.boxService.boxesOwn);
@@ -739,9 +765,7 @@ ngOnInit(){
 
     }
 
-    set_Start_End(start: any, end: any, i) {
-
-        
+    set_Start_End(start: any, end: any, i) {     
 
         this.startCoord[i] = start;
         
@@ -1124,12 +1148,16 @@ ngOnInit(){
     
 
     createBox(event: any) {
-        
-                
 
                 if (event.type == 'dblclick') {
         
-                    
+                    if (this.id_mappa == 141) {
+                
+                        // this.editor.blur();
+                         this.alert_visibility_example_box = true;
+                         
+                         return
+                     }
 
                     let num = this.boxService.get_Boxlength()+1;
                  

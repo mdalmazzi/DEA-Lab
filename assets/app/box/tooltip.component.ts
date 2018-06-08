@@ -48,7 +48,7 @@ export class TooltipComponent  {
         
         this.box.color = '#' + color;
 
-        this.boxService.updateBox(this.box)
+        this.boxService.updateBox(this.box, this.box.numero_mappa)
         .subscribe(
             result => console.log(result)
 
@@ -57,7 +57,7 @@ export class TooltipComponent  {
 
     updateBoxAfter(box: Box) {
     
-        this.boxService.updateBox(box)
+        this.boxService.updateBox(box, this.box.numero_mappa)
         .subscribe(
           //  result => console.log(result)
         )

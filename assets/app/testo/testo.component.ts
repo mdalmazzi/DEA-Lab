@@ -22,6 +22,9 @@ export class TestoComponent implements  OnInit, AfterContentInit{
 
     first_Time: boolean = false;
 
+    alert_visibility_example_testo: boolean = false;
+    alertTestoExample = 'Per modificare questo esempio devi prima copiarlo nella tua area personale. Vuoi procedere alla copia?';
+
     // used for Quill
     public editor;
     public editorContent = '';
@@ -46,6 +49,18 @@ export class TestoComponent implements  OnInit, AfterContentInit{
             params => {
                
                 this.id_mappa = +params['id'];
+
+                this.boxService.getBoxes(this.id_mappa)
+                    .subscribe(
+                    (boxes: Box[]) => {
+                        this.boxes = boxes;
+                        
+                        result => console.log(result, 'testo');
+                        console.log(this.id_mappa, this.boxes[0].numero_mappa);
+                    }
+                );
+
+                
             }
         )     
     }
@@ -53,29 +68,22 @@ export class TestoComponent implements  OnInit, AfterContentInit{
 
     ngOnInit() {
      
-        
+        // Forse un po' ridondante lettura boxes messa anche su constructor per copia esempi
+
         this.editorContent = '';
         this.boxService.getBoxes(this.id_mappa).subscribe(
             (boxes: Box[]) => {
                 this.boxes = boxes;
-                // console.log('Testo: ', this.boxes)
+             
                 //per Titolo header
                 this.boxService.editTitolo(this.boxService.boxes[this.boxService.get_titolo()]);
-                //per Titolo header
-
-               /*  for (var i=0; i<(this.boxes.length); i++) {
-                    if (this.boxService.boxes[i].titolo) {
-                        this.index_titolo = i;
-                        //this.boxService.editTitolo(boxes[i])
-                    }
-                    
-                } */
+              
 
                  this.index_titolo = this.boxService.get_titolo();
                 
                  if (this.boxes[this.index_titolo].stato < 4) {
                     this.boxes[this.index_titolo].stato = 4;
-                    this.boxService.updateBox(this.boxes[this.index_titolo])
+                    this.boxService.updateBox(this.boxes[this.index_titolo], this.id_mappa)
                     .subscribe(
                         //result => console.log(result)
 
@@ -140,27 +148,32 @@ export class TestoComponent implements  OnInit, AfterContentInit{
                             }
                         }           
                     }
-                );     
-
-                
-            
-                
+                );                    
      }
 
      ngAfterContentInit() {
 
      }
+    
+     alert_VisibilityExampleTesto() {
+        this.alert_visibility_example_testo = !this.alert_visibility_example_testo;
+}
 
     onupdateMappa(box) {
         
-        if (this.boxes[this.index_titolo].numero_mappa != 150) {
-            this.boxService.updateBox(box)
+        if (this.boxes[this.index_titolo].numero_mappa != 170) {
+            this.boxService.updateBox(box, this.id_mappa)
              .subscribe(
                  result => console.log(result)
          );   
         } else {
-            alert('Per modificare devi copiare l\'esempio nella tua area di lavoro');
-            this.onCreaMappa(this.boxes,box)
+           
+               
+                this.editor.blur();
+                this.alert_visibility_example_testo = true;
+                
+                return
+           
         }
             
      }
@@ -176,7 +189,6 @@ export class TestoComponent implements  OnInit, AfterContentInit{
             (last_numero_mappa: any) => {
                 //let box_example = boxes.concat(this.boxes_intro);
                
-
                 this.boxes.forEach((box) => {
                    
                 const box_copy = new Box('','',''); 
@@ -240,11 +252,20 @@ export class TestoComponent implements  OnInit, AfterContentInit{
     
       onEditorFocused(quill) {
   //      console.log('editor focus!', quill);
+      if (this.id_mappa == 170) {
+
+          this.editor.blur();
+          this.alert_visibility_example_testo = true;
+  
+          return
+      }
+
       }
     
       onEditorCreated(quill) {
-      
-        quill.focus();
+          
+        this.editor = quill;
+        // quill.focus();
    
       }
     

@@ -13,7 +13,7 @@ export class UserService {
 
 
     // private path_to_server: string = 'http://localhost:3000'; 
-    private path_to_server: string = 'http://192.168.1.41:3000'; 
+    private path_to_server: string = 'http://192.168.1.54:3000'; 
 
 
     constructor(private http: Http) {}

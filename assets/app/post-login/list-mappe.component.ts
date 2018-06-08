@@ -12,6 +12,8 @@ export class ListMappeComponent {
     constructor(private boxService: PostLoginService) {
         
     }
+    private exampleIdee = 164;
+    
     progress = 'progressing';
 
     boxes: Box[] = [];

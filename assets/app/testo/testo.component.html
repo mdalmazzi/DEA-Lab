@@ -1,11 +1,13 @@
-<!-- <div class="row">
-    <div class="col col-xs-10 col-md-offset-1"> -->
-<!-- <section class="panel wrapper"> -->
-<quill-editor [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
+<app-alert-example-testo *ngIf="alert_visibility_example_testo" [box]="boxes[0]" [alert_testo_example]=alertTestoExample (alertVisibilityExampleTesto)=" alert_VisibilityExampleTesto() "></app-alert-example-testo>
+
+<!-- <div class="row ">
+    <div class="col col-xs-10 col-md-offset-1 "> -->
+<!-- <section class="panel wrapper "> -->
+<quill-editor [(ngModel)]="editorContent " [options]="editorOptions " (blur)="onEditorBlured($event) " (focus)="onEditorFocused($event) " (ready)="onEditorCreated($event) " (change)="onContentChanged($event) "></quill-editor>
 
 <!-- </section> -->
 
-<!--  <app-quill [box]="box" *ngFor="let box of boxes; let i=index;">
+<!--  <app-quill [box]="box " *ngFor="let box of boxes; let i=index; ">
         </app-quill>
  -->
 <!--     </div>

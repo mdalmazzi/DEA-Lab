@@ -25,6 +25,16 @@ export class ListScalettaComponent implements OnInit {
             params => {
                 console.log( params);
                 this.id_mappa = +params['id'];
+
+                this.boxService.getBoxes(this.id_mappa)
+                    .subscribe(
+                    (boxes: Box[]) => {
+                        this.boxes = boxes;
+                        this.number_boxes = this.boxes.length;
+                        this.boxService.editTitolo(this.boxes[0]);
+                        result => console.log(result, 'Scaletta')
+                }
+            );
             }
         )
 
@@ -37,17 +47,22 @@ export class ListScalettaComponent implements OnInit {
         
     }
 
+    
+
 
     ngOnInit(){
-        this.boxService.getBoxes(this.id_mappa)
-            .subscribe(
-                (boxes: Box[]) => {
-                    this.boxes = boxes;
-                    this.number_boxes = this.boxes.length;
-                    this.boxService.editTitolo(this.boxes[0]);
-                    result => console.log(result, 'Scaletta')
-                }
-            );
+
+        // Tolto qui per copia esempio e spostato in constructor
+
+        // this.boxService.getBoxes(this.id_mappa)
+        //     .subscribe(
+        //         (boxes: Box[]) => {
+        //             this.boxes = boxes;
+        //             this.number_boxes = this.boxes.length;
+        //             this.boxService.editTitolo(this.boxes[0]);
+        //             result => console.log(result, 'Scaletta')
+        //         }
+        //     );
 
            for (var _i: any = 1; _i < this.boxService.boxes.length; _i++)
            {
@@ -71,8 +86,7 @@ export class ListScalettaComponent implements OnInit {
                      error => console.error(error)
                  );
                  this.number_boxes = this.boxes.length;
-        
-         //       form.resetForm();
+   
      }
 
 

@@ -53,6 +53,10 @@ import {AlertComponent} from "./box/alert.component";
 import {AlertComponent2} from "./idee/alert2.component";
 import {AlertComponent3} from "./shared/alert3.component";
 import {AlertComponent4} from "./post-login/alert4.component";
+import {AlertComponentExample} from "./idee/alertExample.component";
+import {AlertComponentExampleBox} from "./box/alertExampleBox.component"
+import {AlertComponentExampleScaletta} from "./scaletta/alertExampleScaletta.component";
+import {AlertComponentExampleTesto} from "./testo/alertExampleTesto.component"
 
 
 
@@ -112,7 +116,11 @@ import {FocusDirective} from "./shared/focus.directive";
         AlertComponent,
         AlertComponent2,
         AlertComponent3,
-        AlertComponent4
+        AlertComponent4,
+        AlertComponentExample,
+        AlertComponentExampleBox,
+        AlertComponentExampleScaletta,
+        AlertComponentExampleTesto
 
     ],
     imports:

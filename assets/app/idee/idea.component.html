@@ -1,17 +1,15 @@
 <!-- <article class="level1" *ngIf="box.numero_mappa == id_mappa && box.livello == 0 && max_left == 0; else Blocklivello1"> -->
 <app-alert2 *ngIf="alert_visibility" [box]=box [alert_testo]=alertTesto (alertVisibility)="alert_Visibility()"></app-alert2>
 
+<app-alert-example *ngIf="alert_visibility_example" [box]=box [alert_testo_example]=alertTestoExample (alertVisibilityExample)="alert_VisibilityExample()"></app-alert-example>
+
 <a style="z-index:999" style="z-index: 999" *ngIf="belongsToUser() && !belongsToMappa() && box.livello == 0" (click)="onDelete()" class="right "><img src="/img/list-delete.png" /></a>
 
 <span id="primoQuill" class="title" *ngIf="belongsToUser() && !belongsToMappa() && box.livello == 0" [ngDrag]="flag_move" [dragAxis]="{x:true, y:false}" [dragSnapGrid]="{x: 1, y: 0}" (started)="onStarted($event)" (direction_step)="onDirection($event)">   
         
     <quill-editor  [attr.id]="'editor-container' + number_idea" style="width: 70%;" class="left" [(ngModel)]="editorContent" [options]="editorOptions" (blur)="onEditorBlured($event)" (focus)="onEditorFocused($event)" (ready)="onEditorCreated($event)" (change)="onContentChanged($event)"></quill-editor>
 
-
-
 </span>
-
-
 
 
 <a style="z-index: 999" *ngIf="belongsToUser() && !belongsToMappa() && box.livello == 1" (click)="onDelete()" class="right "><img src="/img/list-delete.png" /></a>
@@ -23,8 +21,6 @@
         <a (click)="onDelete()" class="right"><img src="/img/list-delete.png"/></a> -->
 
 </span>
-
-
 
 <a style="z-index: 999" *ngIf="belongsToUser() && !belongsToMappa() && box.livello == 2" (click)="onDelete()" class="right "><img src="/img/list-delete.png" /></a>
 

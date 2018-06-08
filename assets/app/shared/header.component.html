@@ -1,5 +1,13 @@
 <app-alert3 [box]=box [alert_testo]=alertTesto *ngIf="alert_visibility" (alertVisibility)="alert_Visibility()"></app-alert3>
 
+<app-alert-example *ngIf="alert_visibility_example" [box]=box [alert_testo_example]=alertTestoExample (alertVisibilityExample)="alert_VisibilityExample()"></app-alert-example>
+
+<app-alert-example-box *ngIf="alert_visibility_example_box" [box]=box [alert_testo_example]=alertTestoExample (alertVisibilityExampleBox)="alert_VisibilityExampleBox()"></app-alert-example-box>
+
+<app-alert-example-scaletta *ngIf="alert_visibility_example_scaletta" [box]=box [alert_testo_example]=alertTestoExample (alertVisibilityExampleScaletta)="alert_VisibilityExampleScaletta()"></app-alert-example-scaletta>
+
+<app-alert-example-testo *ngIf="alert_visibility_example_testo" [box]="box" [alert_testo_example]=alertTestoExample (alertVisibilityExampleTesto)=" alert_VisibilityExampleTesto() "></app-alert-example-testo>
+
 <header>
 
     <!-- Navigazione DeA (banda beige) -->

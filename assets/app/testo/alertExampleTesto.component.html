@@ -1,0 +1,21 @@
+<section class="alert">
+    <div class="container">
+        <h3>
+            <a (click)="chiudiAlert()" class="right"><img src="/img/list-delete.png" /></a>Attenzione</h3>
+        <div>
+
+            <p class="al_warning">{{alert_testo_example}}</p>
+
+            <div class="clearfix">
+
+
+                <a (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.cursor]="cursor" type=”button” class="button right disable" (click)="noAlert()">Annulla</a>
+
+                <a (mouseenter)="changeCursorIn()" (mouseleave)="changeCursorOut()" [style.cursor]="cursor" type=”button” class="button right active" (click)="siAlert()">Ok</a>
+            </div>
+        </div>
+
+
+
+    </div>
+</section>

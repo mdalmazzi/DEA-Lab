@@ -1,3 +1,6 @@
+<app-alert-example-scaletta *ngIf="alert_visibility_example_scaletta" [box]=box [alert_testo_example]=alertTestoExample (alertVisibilityExampleScaletta)="alert_VisibilityExampleScaletta()"></app-alert-example-scaletta>
+
+
 <a class="right " style="z-index: 999" *ngIf="box.numero_mappa == id_mappa && !box.titolo && box.livello == 0" [ngClass]="{'arrow-up' : visible_status,'arrow-down' : !visible_status}" (click)="change_Visible_Status()"></a>
 
 

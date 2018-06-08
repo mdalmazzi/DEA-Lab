@@ -1,4 +1,8 @@
 <app-alert [box]=box [alert_testo]=alertTesto *ngIf="alert_visibility" (alertVisibility)="alert_Visibility()"></app-alert>
+
+
+<app-alert-example-box *ngIf="alert_visibility_example_box" [box]=box [alert_testo_example]=alertTestoExample (alertVisibilityExampleBox)="alert_VisibilityExample()"></app-alert-example-box>
+
 <div *ngIf="!box.titolo;">
 
     <div style="z-index: 3" (touchend)="aumentaLivelloTouch($event)" (mouseup)="aumentaLivello()" class="rectangle" [style.background]="box.color" [style.border-color]="box.color" [ngDrag]="draggable_On_Off" [ngStyle]="style[number_box]" (started)="onstarted($event)"
@@ -18,30 +22,7 @@
 
         <app-tooltip [index_box_tooltip]="index_box" [box]="box" [ngStyle]="{display: !rect_4_angle || this.boxService.alert_visibilityTooltip[index_box]   ? 'block' : 'none'}"></app-tooltip>
 
-        <!--   <ng-template #Blocklivello1 *ngIf="alert_visibility_tooltip">
 
-        </ng-template> -->
-
-        <!-- 
-
-
-        <img style="z-index: 999;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="resize-handle_right_bottom" mwlResizeHandle [resizeEdges]="{bottom: true, right: true}">
-
-        <img style="z-index: 999;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="resize-handle_right_top" mwlResizeHandle [resizeEdges]="{top: true, right: true}">
-
-        <img style="z-index: 999;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="resize-handle_left_top" mwlResizeHandle [resizeEdges]="{top: true, left: true}">
-
-        <img style="z-index: 999;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="resize-handle_left_bottom" mwlResizeHandle [resizeEdges]="{bottom: true, left: true}"> -->
-        <!-- 
-    Per relazioni
- -->
-        <!--   <img style="z-index: 999;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="relation_bottom" mwlResizeHandle [resizeEdges]="{bottom: true, right: true}">
-
-        <img style="z-index: 999;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="relation_top" mwlResizeHandle [resizeEdges]="{top: true, right: true}">
-
-        <img style="z-index: 999;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="relation_left" mwlResizeHandle [resizeEdges]="{top: true, left: true}">
-
-        <img style="z-index: 999;" src="/stylesheets/rect.png" [ngStyle]="{display: rect_4_angle ? 'none' : 'block'}" class="relation_right" mwlResizeHandle [resizeEdges]="{bottom: true, left: true}"> -->
 
     </div>
 </div>

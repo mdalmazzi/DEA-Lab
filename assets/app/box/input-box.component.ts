@@ -30,7 +30,7 @@ export class InputBoxComponent implements OnInit {
         if (this.box) {
             //edit
             this.box.content = form.value.content;
-            this.boxService.updateBox(this.box)
+            this.boxService.updateBox(this.box, this.id_mappa)
                 .subscribe(
                    // result => console.log(result)
 

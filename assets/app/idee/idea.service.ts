@@ -16,8 +16,9 @@ export class IdeaService {
     //private path_to_server: string = 'http://dealab-env.cpr43rbhcm.us-west-2.elasticbeanstalk.com'; 
 
     // private path_to_server: string = 'http://localhost:3000'; 
-    private path_to_server: string = 'http://192.168.1.41:3000'; 
+    private path_to_server: string = 'http://192.168.1.54:3000'; 
 
+    private exampleIdee: number = 164;
 
     boxisedit = new EventEmitter<Box>();
     titoloisedit = new EventEmitter<Box>();
@@ -101,14 +102,10 @@ export class IdeaService {
 
                       this.addBox(box_copy)
                            .subscribe(
-                                data => console.log(data),
-                                error => console.error(error)
-                            ); 
-                            
-                    
-                  }); 
-                
-                    
+                                // data => console.log(data),
+                                // error => console.error(error)
+                            );             
+                  });         
             });               
      }
 
@@ -124,7 +121,7 @@ export class IdeaService {
         const token = localStorage.getItem('userId')
             ? '?token=' + localStorage.getItem('userId')
             : '';
-        //console.log(this.path_to_server + '/mappa_idee' + token, body, {headers: headers})
+        
         return this.http.post(this.path_to_server + '/mappa_idee' + token, body, {headers: headers})
             .map((response: Response) => {
                 const result = response.json();
@@ -188,20 +185,21 @@ export class IdeaService {
     }
 
     copiaExample(box: Box, id_mappa) {
-
+       
         let userId = localStorage.getItem('userId');
 
-        alert('Per modificare devi copiare l\'esempio nella tua area di lavoro');
+        // alert('Per modificare devi copiare l\'esempio nella tua area di lavoro');
 
         this.getLastMapNumber()
                 .subscribe(
                     (example) => {
-                       
+                                      
                         this.last_numero_mappa = example;
-                        this.getBoxes(box.numero_mappa )
+
+                        this.getBoxes(box.numero_mappa)
                             .subscribe(
                                 (boxes: Box[]) => {
-                                    boxes.forEach((box) => {
+                                    boxes.forEach((box, indice) => {
                    
                                         const box_copy = new Box(' ', ' ',  ' ', 0, box.rectangle, true, example + 1); 
                   
@@ -219,41 +217,39 @@ export class IdeaService {
                                         box_copy.titolo = box.titolo ;
                               
                                         box_copy.inMap = false;
-                  
+                                        
                                         this.addBox(box_copy)
                                              .subscribe(
                                                   data => 
-                                                  {
-                                                   console.log('Copia example: ', data);
-                                                   this.router.navigate(['idee/'+ (example + 1)]);
-                                                   return data
-                                                        
+                                                  {                               if (indice == (boxes.length-1)) {
+                                                    this.router.navigate(['idee/'+ (example + 1)]);
+                                                    //return data
+                                                  }
+                                                    
+                                                          
                                                 },
                                                   error => console.error(error)
-                                              );   
-                                             }); 
-                                })
-                
-                            
+                                              );      
+                                    }); 
+                                })    
                             }
+                            
             )
-        
+          
         // procedura per copia esempio 
     }
 
     updateBox(box: Box, id_mappa) {
-
-        console.log('box.numero_mappa: ', box.numero_mappa);
+   
         // let userId = localStorage.getItem('userId');
 
         // procedura per copia esempio
-        if (id_mappa == 164)  {
+        if (id_mappa == this.exampleIdee)  {
             
            this.copiaExample(box, id_mappa);
 
            const body = JSON.stringify(box);
-           const headers = new Headers({'Content-Type': 'application/json'});
-       
+           const headers = new Headers({'Content-Type': 'application/json'});      
 
             const token = localStorage.getItem('userId')
                 ? '?token=' + localStorage.getItem('userId')
@@ -290,8 +286,6 @@ export class IdeaService {
     }
 
     deleteBox(box: Box) {
-
-        
 
             this.boxes.splice(this.boxes.indexOf(box), 1);
             /* const token = localStorage.getItem('token')

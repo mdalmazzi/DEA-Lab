@@ -1,3 +1,5 @@
+<app-alert-example-box *ngIf="alert_visibility_example_box" [box]=boxes[0] [alert_testo_example]=alertTestoExample (alertVisibilityExampleBox)="alert_VisibilityExample()"></app-alert-example-box>
+
 <!-- <section class="panel wrapper"> -->
 <div id="svgContainer" (dblclick)="createBox($event)" #svgContainer>
     <svg [attr.height]="svgHeight" [attr.width]="svgWidth"> 
